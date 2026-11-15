@@ -4,7 +4,7 @@ React components styled after Al Sadu, the Bedouin weaving, and built on [Vercel
 
 Live catalogue: **[sadu-ui.pages.dev](https://sadu-ui.pages.dev)**
 
-![The Sadu catalogue masthead with a rug on the loom](docs/images/hero.png)
+![Sadu components: a motif select, a calendar range, a rug on the loom and an Arabic dialog](docs/images/social-landscape.png)
 
 All 56 components are live on the site. Each one has a page with a props playground, its states, its keyboard map, the source, and a zip download.
 
@@ -53,11 +53,13 @@ npm run dev        # http://localhost:5191
 npm test           # unit tests (Vitest)
 npm run test:e2e   # browser tests (Playwright, local Chrome)
 npm run build
+npm run social     # redraws docs/images/social-*.png from the dev server
 ```
 
 - `src/sadu/` holds the components. Each one is `<name>.tsx` with styles in `styles/<name>.css`. The weave renderer, motifs, palette and shared parts sit beside them, and the tokens are in `sadu.css`.
 - `src/gallery/` holds the demo for every component. The site reads its cards and captions from these files, so a demo change shows up on the site too.
 - `src/site/` is the catalogue site.
+- `social/` draws the social images from the real components.
 - `scripts/build-registry.mjs` writes the shadcn registry to `public/r/` before every dev and build run.
 - `docs/design/` has the design rules (`DESIGN.md`), the Arabic glossary (`ARABIC.md`), the design direction and the design review.
 

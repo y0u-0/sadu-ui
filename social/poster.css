@@ -1,0 +1,240 @@
+html,
+body {
+  margin: 0;
+  background: var(--sadu-page);
+}
+
+.poster {
+  --gutter: 32px;
+  --gap: 16px;
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gutter);
+  overflow: hidden;
+  background: var(--sadu-page);
+  color: var(--sadu-ink);
+  font-family: var(--sadu-font);
+}
+
+.poster[data-format="landscape"] {
+  width: 1600px;
+  height: 900px;
+  grid-template-columns: 600px 452px 452px;
+  grid-template-rows: 404px 100px 300px;
+  grid-template-areas:
+    "copy bench bench"
+    "calendar bench bench"
+    "calendar loom arabic";
+}
+
+.poster[data-format="portrait"] {
+  --gutter: 28px;
+  --gap: 14px;
+  width: 1080px;
+  height: 1350px;
+  grid-template-columns: 505px 505px;
+  grid-template-rows: 348px 488px 166px 250px;
+  grid-template-areas:
+    "copy copy"
+    "bench bench"
+    "calendar loom"
+    "calendar arabic";
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--sadu-surface);
+  color: var(--sadu-ink);
+}
+
+/* Copy */
+
+.tile--copy {
+  grid-area: copy;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 48px 40px;
+  box-sizing: border-box;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--sadu-font-display);
+  font-size: 108px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.wordmark__arabic {
+  font-family: var(--sadu-font-arabic-display);
+  letter-spacing: 0;
+  font-size: 98px;
+}
+
+.wordmark__rule {
+  flex: none;
+  align-self: stretch;
+  width: 1px;
+  margin-block: 10px;
+  background: var(--sadu-line);
+}
+
+.lede {
+  margin: 28px 0 0;
+  font-family: var(--sadu-font-display);
+  font-size: 35px;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.footline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  font-size: 21px;
+  color: var(--sadu-ink-2);
+}
+
+.footline__url {
+  color: var(--sadu-ink);
+  text-decoration: underline dashed var(--sadu-madder);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+/* Workbench */
+
+.tile--bench {
+  grid-area: bench;
+  background: var(--sadu-page);
+}
+
+.bench {
+  position: absolute;
+  inset: 36px auto auto 40px;
+  width: 672px;
+  height: 358px;
+  zoom: 1.25;
+}
+
+.bench__item {
+  position: absolute;
+}
+
+.poster[data-format="portrait"] .bench {
+  width: 821px;
+  height: 362px;
+  zoom: 1.15;
+}
+
+.bench__select {
+  top: 0;
+  left: 0;
+  width: 250px;
+}
+
+.bench__detail {
+  bottom: 0;
+  left: 0;
+}
+
+.bench__skeins {
+  top: 0;
+  left: 340px;
+}
+
+.bench__switch {
+  top: 214px;
+  left: 340px;
+}
+
+.bench__slider {
+  top: 96px;
+  left: 340px;
+  right: -90px;
+}
+
+.bench__toast {
+  right: 0;
+  bottom: 0;
+  width: 320px;
+}
+
+/* Calendar */
+
+.tile--calendar {
+  grid-area: calendar;
+}
+
+.poster[data-format="portrait"] .calendar {
+  inset-block-start: 32px;
+  zoom: 1.25;
+}
+
+.calendar {
+  position: absolute;
+  inset: 30px 0 auto;
+  display: flex;
+  justify-content: center;
+  zoom: 1.32;
+}
+
+/* Loom */
+
+.poster[data-format="portrait"] .loom {
+  inset-block-start: 32px;
+}
+
+.tile--loom {
+  grid-area: loom;
+  background: #120d0a;
+}
+
+.loom {
+  position: absolute;
+  inset: 40px -80px auto 32px;
+}
+
+.loom__rug {
+  margin-inline-start: 12px;
+}
+
+.loom__beam {
+  position: absolute;
+  inset-block: -10px;
+  inset-inline-start: 0;
+  width: 12px;
+}
+
+.loom__beater {
+  position: absolute;
+  inset-block: -14px;
+  inset-inline-start: 307px;
+  width: 10px;
+}
+
+/* Arabic */
+
+.tile--arabic {
+  grid-area: arabic;
+  background: var(--sadu-madder-cloth);
+}
+
+.arabic {
+  position: absolute;
+  inset: 0 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+}
+
+.arabic .sadu-dialog[data-specimen] {
+  width: 100%;
+}

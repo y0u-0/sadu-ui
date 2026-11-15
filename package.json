@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "perf": "node scripts/perf/run.mjs",
     "deploy": "CLOUDFLARE_ACCOUNT_ID=c53bef0920485bd6a524730dd87c1ba9 bash scripts/deploy.sh",
-    "deploy:whoami": "XDG_CONFIG_HOME=$HOME/.config/sadu-cloudflare ./node_modules/.bin/wrangler whoami < /dev/null"
+    "deploy:whoami": "XDG_CONFIG_HOME=$HOME/.config/sadu-cloudflare ./node_modules/.bin/wrangler whoami < /dev/null",
+    "social": "node social/capture.mjs"
   },
   "dependencies": {
     "@ui-sdk/core": "^0.1.0-beta.1",
