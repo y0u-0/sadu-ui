@@ -1,0 +1,94 @@
+.sadu-preferences {
+  box-sizing: border-box;
+  display: grid;
+  gap: 14px;
+  width: min(400px, 100%);
+  padding: 16px;
+  border-radius: var(--sadu-radius-popup);
+  background: var(--sadu-surface);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+  color: var(--sadu-ink);
+  font-family: var(--sadu-font);
+}
+
+.sadu-preferences[data-variant="plain"] {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.sadu-preferences__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sadu-preferences__title {
+  margin: 0;
+  font: 600 14px/20px var(--sadu-font);
+}
+
+.sadu-preferences__reset {
+  margin-inline-end: -8px;
+}
+
+.sadu-preferences__sampler {
+  position: relative;
+  padding-block: 4px;
+}
+
+.sadu-preferences__warp,
+.sadu-preferences__cloth {
+  display: grid;
+}
+
+.sadu-preferences__warp {
+  position: absolute;
+  inset: 4px 0;
+}
+
+.sadu-preferences__cloth {
+  position: relative;
+  width: 76%;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-contact), var(--sadu-cloth-ring);
+}
+
+.sadu-preferences__band {
+  height: 33px;
+}
+
+.sadu-preferences__beater {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 76%;
+  width: 10px;
+  margin-inline-start: -2px;
+}
+
+.sadu-preferences__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px 16px;
+  padding-top: 14px;
+  box-shadow: inset 0 1px 0 var(--sadu-edge);
+}
+
+.sadu-preferences__row .sadu-skeins {
+  grid-column: 1 / -1;
+}
+
+.sadu-preferences__description {
+  grid-column: 1 / -1;
+  margin: 0;
+  unicode-bidi: plaintext;
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+.sadu-preferences__description:dir(rtl) {
+  text-align: right;
+}

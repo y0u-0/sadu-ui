@@ -1,0 +1,103 @@
+@layer ui-sdk;
+
+:root {
+  background: var(--sadu-page);
+  color: var(--sadu-ink);
+  font-family: var(--sadu-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+:root[data-dye="saffron"],
+[data-dye="saffron"] [data-theme="day"] {
+  --sadu-madder: #9a5710;
+  --sadu-madder-ink: #9a5710;
+  --sadu-madder-cloth: #cf7a1b;
+}
+
+:root[data-dye="saffron"][data-theme="tent"],
+[data-dye="saffron"] [data-theme="tent"] {
+  --sadu-madder: #e39440;
+  --sadu-madder-ink: #e39440;
+  --sadu-madder-cloth: #cf7a1b;
+}
+
+:root[data-dye="indigo"],
+[data-dye="indigo"] [data-theme="day"] {
+  --sadu-madder: #2a3c63;
+  --sadu-madder-ink: #2a3c63;
+  --sadu-madder-cloth: #2a3c63;
+}
+
+:root[data-dye="indigo"][data-theme="tent"],
+[data-dye="indigo"] [data-theme="tent"] {
+  --sadu-madder: #8fa5d6;
+  --sadu-madder-ink: #8fa5d6;
+  --sadu-madder-cloth: #3f5687;
+}
+
+:root[data-dye="camel"],
+[data-dye="camel"] [data-theme="day"] {
+  --sadu-madder: #7a5534;
+  --sadu-madder-ink: #7a5534;
+  --sadu-madder-cloth: #a87a4f;
+}
+
+:root[data-dye="camel"][data-theme="tent"],
+[data-dye="camel"] [data-theme="tent"] {
+  --sadu-madder: #c39568;
+  --sadu-madder-ink: #c39568;
+  --sadu-madder-cloth: #a87a4f;
+}
+
+:root[data-dye="charcoal"],
+[data-dye="charcoal"] [data-theme="day"] {
+  --sadu-madder: #2b221c;
+  --sadu-madder-ink: #2b221c;
+  --sadu-madder-cloth: #1f1813;
+}
+
+:root[data-dye="charcoal"][data-theme="tent"],
+[data-dye="charcoal"] [data-theme="tent"] {
+  --sadu-madder: #e6d9bf;
+  --sadu-madder-ink: #e6d9bf;
+  --sadu-madder-cloth: #6b5a4a;
+}
+
+:root,
+[data-theme="day"] {
+  --site-danger: #a3231b;
+  --site-danger-cloth: #a3231b;
+}
+
+[data-theme="tent"] {
+  --site-danger: #e05a48;
+  --site-danger-cloth: #c43a2c;
+}
+
+:root:not([data-dye="madder"])
+  :is([data-invalid], [data-variant="destructive"], [data-tone="danger"], [data-type="error"], .sadu-field__error) {
+  --sadu-madder: var(--site-danger);
+  --sadu-madder-ink: var(--site-danger);
+  --sadu-madder-cloth: var(--site-danger-cloth);
+}
+
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  animation-duration: 1ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+.page {
+  padding: 0 24px 96px;
+}

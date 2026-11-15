@@ -1,0 +1,71 @@
+.sadu-time {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sadu-time-input {
+  min-width: 144px;
+}
+
+.sadu-time-input .sadu-date-input__segment[data-type="dayPeriod"] {
+  font-weight: 500;
+}
+
+.sadu-time__day {
+  --sadu-hour-width: calc((100% - 23px) / 24);
+  position: relative;
+  display: flex;
+  gap: 1px;
+  height: 3px;
+}
+
+.sadu-time__float {
+  flex: 1 1 0;
+  border-radius: 1px;
+  background: #1f1813;
+  box-shadow: var(--sadu-cloth-ring);
+}
+
+.sadu-time__float[data-day] {
+  background: #e6d9bf;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--sadu-edge) 45%, transparent);
+}
+
+[data-theme="tent"] .sadu-time__float:not([data-day]) {
+  background: #5a4a3c;
+}
+
+.sadu-time__hour {
+  position: absolute;
+  top: 0;
+  inset-inline-start: calc(var(--sadu-hour) * (var(--sadu-hour-width) + 1px));
+  width: var(--sadu-hour-width);
+  height: 3px;
+  border-radius: 1px;
+  background: var(--sadu-madder-cloth);
+  transition: inset-inline-start var(--sadu-hour-duration) steps(var(--sadu-hour-steps), jump-start);
+}
+
+.sadu-time__day[data-empty] .sadu-time__hour {
+  opacity: 0;
+}
+
+.sadu-time:has([data-disabled]) .sadu-time__day {
+  box-shadow: none;
+  background: repeating-linear-gradient(90deg, var(--sadu-edge) 0 6px, transparent 6px 10px) left center / 100% 1px no-repeat;
+}
+
+.sadu-time:has([data-disabled]) .sadu-time__day > * {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-time__hour {
+    transition: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-time__hour {
+  transition: none;
+}

@@ -1,0 +1,237 @@
+@property --sadu-progress-pass {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.sadu-progress {
+  --sadu-progress-band: 22px;
+  --sadu-progress-float: 6px;
+  --sadu-progress-window: 48px;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  font-family: var(--sadu-font);
+}
+
+.sadu-progress[data-size="sm"] {
+  --sadu-progress-band: 6px;
+}
+
+.sadu-progress__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sadu-progress__label {
+  font: 600 12px/16px var(--sadu-font);
+  letter-spacing: 0.01em;
+  color: var(--sadu-ink);
+}
+
+.sadu-progress__reading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-inline-start: auto;
+}
+
+.sadu-progress__value {
+  font: 600 20px/24px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+}
+
+.sadu-progress[data-size="sm"] .sadu-progress__value {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sadu-progress__unit {
+  margin-inline-start: 5px;
+  unicode-bidi: isolate;
+  font: 500 12px/16px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+.sadu-progress__done {
+  display: grid;
+  opacity: 0;
+  scale: 0.6;
+  transition:
+    opacity var(--sadu-dur-press) var(--sadu-snap),
+    scale var(--sadu-dur-pop-in) var(--sadu-snap);
+}
+
+.sadu-progress[data-complete] .sadu-progress__done {
+  opacity: 1;
+  scale: 1;
+  transition-delay: var(--sadu-dur-press);
+}
+
+.sadu-progress__track {
+  position: relative;
+  height: var(--sadu-progress-band);
+  margin-block: 4px;
+  container-type: inline-size;
+}
+
+.sadu-progress[data-size="sm"] .sadu-progress__track {
+  margin-block: 2px;
+}
+
+.sadu-progress__warp {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, transparent 0 0.5px, var(--sadu-edge) 0.5px 1.5px, transparent 1.5px 2px);
+  opacity: 0.7;
+}
+
+.sadu-progress__indicator {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  transition: width 200ms linear;
+}
+
+.sadu-progress__indicator[data-indeterminate] {
+  display: none;
+}
+
+.sadu-progress__cloth {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: round(down, 100%, var(--sadu-progress-float));
+  overflow: hidden;
+  box-shadow: var(--sadu-contact);
+}
+
+.sadu-progress__indicator[data-complete] .sadu-progress__cloth {
+  width: 100%;
+}
+
+.sadu-progress__cloth .sadu-weave,
+.sadu-progress__window .sadu-weave {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 100cqw;
+}
+
+.sadu-progress__beater {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  inset-inline-start: round(down, 100%, var(--sadu-progress-float));
+  width: 6px;
+  translate: -1px 0;
+}
+
+.sadu-progress__beater:dir(rtl) {
+  translate: 1px 0;
+}
+
+.sadu-progress[data-size="sm"] .sadu-progress__beater {
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  border-radius: 1px;
+}
+
+.sadu-progress__indicator[data-complete] .sadu-progress__beater {
+  opacity: 0;
+}
+
+.sadu-progress__indicator[data-complete] .sadu-progress__beater[data-tap] {
+  animation: sadu-progress-tap var(--sadu-dur-press) var(--sadu-snap) both, sadu-progress-lift var(--sadu-dur-press) var(--sadu-dur-press) var(--sadu-snap) both;
+}
+
+@keyframes sadu-progress-tap {
+  50% {
+    margin-inline-start: -3px;
+  }
+}
+
+@keyframes sadu-progress-lift {
+  to {
+    opacity: 0;
+  }
+}
+
+.sadu-progress__shuttle {
+  display: none;
+}
+
+.sadu-progress__track[data-indeterminate] .sadu-progress__shuttle {
+  --sadu-progress-at: round(down, var(--sadu-progress-pass), var(--sadu-progress-float));
+  position: absolute;
+  inset: 0;
+  display: block;
+  animation: sadu-progress-pass var(--sadu-progress-shuttle-pass, 900ms) cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+.sadu-progress__window {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0 calc(100% - var(--sadu-progress-at) - var(--sadu-progress-window)) 0 var(--sadu-progress-at));
+}
+
+.sadu-progress__window:dir(rtl) {
+  clip-path: inset(0 var(--sadu-progress-at) 0 calc(100% - var(--sadu-progress-at) - var(--sadu-progress-window)));
+}
+
+.sadu-progress__shuttle .sadu-progress__beater {
+  inset-inline-start: calc(var(--sadu-progress-at) + var(--sadu-progress-window));
+}
+
+@keyframes sadu-progress-pass {
+  to {
+    --sadu-progress-pass: calc(100cqw - var(--sadu-progress-window));
+  }
+}
+
+@keyframes sadu-progress-rest {
+  to {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-progress__indicator {
+    transition: none;
+  }
+
+  .sadu-progress__indicator[data-complete] .sadu-progress__beater[data-tap] {
+    animation: sadu-progress-lift var(--sadu-dur-press) both;
+  }
+
+  .sadu-progress__done {
+    scale: 1;
+  }
+
+  .sadu-progress__track[data-indeterminate] .sadu-progress__shuttle {
+    --sadu-progress-pass: calc(50cqw - var(--sadu-progress-window) / 2);
+    animation: sadu-progress-rest 1600ms ease-in-out infinite alternate;
+  }
+}
+
+[data-motion="reduced"] .sadu-progress__indicator {
+  transition: none;
+}
+
+[data-motion="reduced"] .sadu-progress__indicator[data-complete] .sadu-progress__beater[data-tap] {
+  animation: sadu-progress-lift var(--sadu-dur-press) both;
+}
+
+[data-motion="reduced"] .sadu-progress__done {
+  scale: 1;
+}
+
+[data-motion="reduced"] .sadu-progress__track[data-indeterminate] .sadu-progress__shuttle {
+  --sadu-progress-pass: calc(50cqw - var(--sadu-progress-window) / 2);
+  animation: sadu-progress-rest 1600ms ease-in-out infinite alternate;
+}

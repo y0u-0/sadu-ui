@@ -1,0 +1,267 @@
+.sadu-cropper {
+  --sadu-cropper-thread: var(--sadu-wool);
+  --sadu-cropper-dim: color-mix(in srgb, var(--sadu-black) 55%, transparent);
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+  min-width: 0;
+  font-family: var(--sadu-font);
+  color: var(--sadu-ink);
+}
+
+.sadu-cropper__aspects {
+  max-width: 100%;
+}
+
+.sadu-cropper__viewport {
+  justify-self: stretch;
+  max-width: 100%;
+  aspect-ratio: var(--image-cropper-aspect-ratio, 3 / 2);
+  border-radius: var(--sadu-radius-control);
+  background: var(--sadu-black);
+  box-shadow: var(--sadu-cloth-ring);
+  user-select: none;
+  touch-action: none;
+}
+
+.sadu-cropper__image {
+  display: block;
+  max-width: none;
+  pointer-events: none;
+}
+
+.sadu-cropper[data-reshaping] .sadu-cropper__image {
+  transition: transform var(--sadu-dur-throw) var(--sadu-throw);
+}
+
+.sadu-cropper__selection {
+  box-sizing: border-box;
+  outline: 1px solid color-mix(in srgb, var(--sadu-cropper-thread) 90%, transparent);
+  box-shadow: 0 0 0 100vmax var(--sadu-cropper-dim);
+  cursor: move;
+}
+
+.sadu-cropper[data-reshaping]:not([data-dragging]) .sadu-cropper__selection {
+  transition:
+    left var(--sadu-dur-throw) var(--sadu-throw),
+    top var(--sadu-dur-throw) var(--sadu-throw),
+    width var(--sadu-dur-throw) var(--sadu-throw),
+    height var(--sadu-dur-throw) var(--sadu-throw);
+}
+
+.sadu-cropper__selection:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: 0;
+}
+
+.sadu-cropper__grid {
+  --line: var(--sadu-cropper-thread);
+  position: absolute;
+  inset: 0;
+  opacity: 0.6;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent calc(100% / 3 - 0.5px), var(--line) calc(100% / 3 - 0.5px) calc(100% / 3 + 0.5px), transparent calc(100% / 3 + 0.5px)),
+    linear-gradient(90deg, transparent calc(200% / 3 - 0.5px), var(--line) calc(200% / 3 - 0.5px) calc(200% / 3 + 0.5px), transparent calc(200% / 3 + 0.5px)),
+    linear-gradient(180deg, transparent calc(100% / 3 - 0.5px), var(--line) calc(100% / 3 - 0.5px) calc(100% / 3 + 0.5px), transparent calc(100% / 3 + 0.5px)),
+    linear-gradient(180deg, transparent calc(200% / 3 - 0.5px), var(--line) calc(200% / 3 - 0.5px) calc(200% / 3 + 0.5px), transparent calc(200% / 3 + 0.5px));
+  transition: opacity var(--sadu-dur-press);
+}
+
+.sadu-cropper__grid[data-dragging] {
+  opacity: 1;
+}
+
+.sadu-cropper__peg {
+  --sadu-wood-lift: 0 2px 4px color-mix(in srgb, var(--sadu-black) 45%, transparent);
+  position: absolute;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  translate: -50% -50%;
+  transition:
+    width var(--sadu-dur-press) var(--sadu-snap),
+    height var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-cropper__peg::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+
+.sadu-cropper__peg[data-position="nw"] {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+}
+
+.sadu-cropper__peg[data-position="ne"] {
+  top: 0;
+  left: 100%;
+  cursor: nesw-resize;
+}
+
+.sadu-cropper__peg[data-position="se"] {
+  top: 100%;
+  left: 100%;
+  cursor: nwse-resize;
+}
+
+.sadu-cropper__peg[data-position="sw"] {
+  top: 100%;
+  left: 0;
+  cursor: nesw-resize;
+}
+
+.sadu-cropper__peg:hover,
+.sadu-cropper__peg[data-dragging] {
+  width: 14px;
+  height: 14px;
+}
+
+.sadu-cropper__peg:focus-visible,
+.sadu-cropper__bar:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-cropper__bar {
+  --sadu-wood-lift: 0 2px 4px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+  position: absolute;
+  z-index: 1;
+}
+
+.sadu-cropper__bar::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+
+.sadu-cropper__bar:is([data-position="n"], [data-position="s"]) {
+  --sadu-wood-angle: 180deg;
+  --sadu-wood-grain: 0deg;
+  left: 50%;
+  width: 20px;
+  height: 4px;
+  margin-left: -10px;
+  cursor: ns-resize;
+}
+
+.sadu-cropper__bar[data-position="n"] {
+  top: -2px;
+}
+
+.sadu-cropper__bar[data-position="s"] {
+  bottom: -2px;
+}
+
+.sadu-cropper__bar:is([data-position="e"], [data-position="w"]) {
+  top: 50%;
+  width: 4px;
+  height: 20px;
+  margin-top: -10px;
+  cursor: ew-resize;
+}
+
+.sadu-cropper__bar[data-position="e"] {
+  right: -2px;
+}
+
+.sadu-cropper__bar[data-position="w"] {
+  left: -2px;
+}
+
+.sadu-cropper__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  justify-self: stretch;
+}
+
+.sadu-cropper__zoom {
+  display: flex;
+  flex: 1 1 180px;
+  align-items: center;
+  gap: 12px;
+  margin-inline-end: 8px;
+}
+
+.sadu-cropper__range {
+  --sadu-cropper-wood: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 6px), linear-gradient(90deg, #ead8b8, #b98d5b 50%, #7b5631);
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.sadu-cropper__range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sadu-edge);
+}
+
+.sadu-cropper__range::-webkit-slider-thumb {
+  width: 10px;
+  height: 22px;
+  margin-top: -9px;
+  border-radius: var(--sadu-radius-wood);
+  background: var(--sadu-cropper-wood);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--sadu-black) 35%, transparent);
+  appearance: none;
+}
+
+.sadu-cropper__range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sadu-edge);
+}
+
+.sadu-cropper__range::-moz-range-thumb {
+  width: 10px;
+  height: 22px;
+  border: 0;
+  border-radius: var(--sadu-radius-wood);
+  background: var(--sadu-cropper-wood);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--sadu-black) 35%, transparent);
+}
+
+.sadu-cropper__range:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+  border-radius: 4px;
+}
+
+.sadu-cropper__readout {
+  min-width: 92px;
+  margin-inline-start: auto;
+  font: 500 12px/16px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  color: var(--sadu-ink-2);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-cropper[data-reshaping] .sadu-cropper__selection,
+  .sadu-cropper[data-reshaping] .sadu-cropper__image,
+  .sadu-cropper__peg,
+  .sadu-cropper__grid {
+    transition-duration: 1ms;
+  }
+}
+
+[data-motion="reduced"] .sadu-cropper[data-reshaping] .sadu-cropper__selection,
+[data-motion="reduced"] .sadu-cropper[data-reshaping] .sadu-cropper__image,
+[data-motion="reduced"] .sadu-cropper__peg,
+[data-motion="reduced"] .sadu-cropper__grid {
+  transition-duration: 1ms;
+}

@@ -1,0 +1,232 @@
+.sadu-color {
+  --sadu-color-threads-angle: 90deg;
+  --sadu-color-threads: linear-gradient(var(--sadu-color-threads-angle), #ca2121 0% 4.167%, #ca4b21 4.167% 8.333%, #ca7521 8.333% 12.5%, #caa021 12.5% 16.67%, #caca21 16.67% 20.83%, #a0ca21 20.83% 25%, #75ca21 25% 29.17%, #4bca21 29.17% 33.33%, #21ca21 33.33% 37.5%, #21ca4b 37.5% 41.67%, #21ca75 41.67% 45.83%, #21caa0 45.83% 50%, #21caca 50% 54.17%, #21a0ca 54.17% 58.33%, #2175ca 58.33% 62.5%, #214bca 62.5% 66.67%, #2121ca 66.67% 70.83%, #4b21ca 70.83% 75%, #7521ca 75% 79.17%, #a021ca 79.17% 83.33%, #ca21ca 83.33% 87.5%, #ca21a0 87.5% 91.67%, #ca2175 91.67% 95.83%, #ca214b 95.83% 100%);
+  width: 100%;
+  max-width: 300px;
+  font-family: var(--sadu-font);
+}
+
+.sadu-color:dir(rtl) {
+  --sadu-color-threads-angle: 270deg;
+}
+
+.sadu-color__picker {
+  display: grid;
+  gap: 12px;
+}
+
+.sadu-color__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sadu-color__name {
+  font: 500 13px/18px var(--sadu-font);
+  color: var(--sadu-ink);
+}
+
+.sadu-color__skeins {
+  display: flex;
+  margin: -8px;
+  outline: none;
+}
+
+.sadu-color__skein {
+  all: unset;
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.sadu-color__yarn {
+  --wool: var(--color-picker-color);
+  --wool-light: color-mix(in oklab, var(--wool), white 14%);
+  --wool-dark: color-mix(in oklab, var(--wool), black 28%);
+  width: 28px;
+  height: 28px;
+  transition: scale var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-color__skein[data-selected]::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--sadu-ink);
+}
+
+.sadu-color__skein:focus-visible::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  outline: var(--sadu-focus);
+}
+
+.sadu-color__skein:active .sadu-color__yarn {
+  scale: 0.94;
+}
+
+.sadu-color__band {
+  position: relative;
+  height: 33px;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-cloth-ring);
+}
+
+.sadu-color__beat {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  inset-inline-start: 0;
+  width: 10px;
+  opacity: 0;
+  pointer-events: none;
+  animation: sadu-color-beat 600ms steps(15, end) both;
+}
+
+.sadu-color__area,
+.sadu-color__hue {
+  position: relative;
+  touch-action: none;
+}
+
+.sadu-color__area {
+  height: 140px;
+  border-radius: var(--sadu-radius-item);
+  background: var(--color-area-background);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+  cursor: crosshair;
+}
+
+.sadu-color__hue {
+  height: 12px;
+  border-radius: var(--sadu-radius-cloth);
+  background: var(--sadu-color-threads);
+  cursor: pointer;
+}
+
+.sadu-color__cloth {
+  --cloth: transparent;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.sadu-color__thumb {
+  --sadu-lozenge-size: 18px;
+  translate: -50% -50%;
+  outline: none;
+  transition: scale var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-color__thumb::before {
+  border: 2.5px solid var(--sadu-wool);
+  background: var(--color-picker-color);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--sadu-black) 60%, transparent),
+    0 3px 8px -2px color-mix(in srgb, var(--sadu-black) 50%, transparent);
+}
+
+.sadu-color__thumb:focus-visible::before {
+  box-shadow:
+    0 0 0 1px var(--sadu-surface),
+    0 0 0 3px var(--sadu-madder-ink);
+}
+
+.sadu-color__area[data-dragging] .sadu-color__thumb,
+.sadu-color__thumb:active {
+  scale: 1.12;
+}
+
+.sadu-color__beater {
+  top: 50%;
+  width: 10px;
+  height: 24px;
+  translate: -50% -50%;
+  outline: none;
+}
+
+.sadu-color__beater:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-color__entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sadu-color__field {
+  flex: 1;
+  height: var(--sadu-h-field);
+}
+
+.sadu-color__input {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  font: 400 14px/20px var(--sadu-font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.sadu-color__input:dir(rtl) {
+  text-align: end;
+}
+
+.sadu-color__dropper[data-unsupported] {
+  display: none;
+}
+
+.sadu-color__closest {
+  margin-top: -4px;
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+@keyframes sadu-color-beat {
+  0% {
+    inset-inline-start: 0;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    inset-inline-start: calc(100% - 10px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-color__beat {
+    display: none;
+  }
+
+  .sadu-color__yarn,
+  .sadu-color__thumb {
+    transition-duration: 1ms;
+  }
+}
+
+[data-motion="reduced"] .sadu-color__beat {
+  display: none;
+}
+
+[data-motion="reduced"] .sadu-color__yarn,
+[data-motion="reduced"] .sadu-color__thumb {
+  transition-duration: 1ms;
+}

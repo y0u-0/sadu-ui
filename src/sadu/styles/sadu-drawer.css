@@ -1,0 +1,160 @@
+.sadu-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--sadu-black) 40%, transparent);
+}
+
+.sadu-drawer {
+  --sadu-popup-pad: 0px;
+  --sadu-drawer-radius: 16px;
+  --sadu-drawer-open: var(--drawer-progress, 1);
+  --sadu-drawer-rolled: calc(1 - var(--sadu-drawer-open) * var(--sadu-drawer-open) * var(--sadu-drawer-open));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, calc(100vw - 24px));
+  height: 100%;
+  border-radius: var(--sadu-drawer-radius) 0 0 var(--sadu-drawer-radius);
+  font-family: var(--sadu-font);
+  transition: none;
+}
+
+.sadu-drawer:is([data-starting-style], [data-ending-style]) {
+  opacity: 1;
+  scale: none;
+}
+
+.sadu-drawer[data-side="left"] {
+  border-radius: 0 var(--sadu-drawer-radius) var(--sadu-drawer-radius) 0;
+}
+
+.sadu-drawer[data-side="bottom"] {
+  width: 100%;
+  height: auto;
+  max-height: 85dvh;
+  border-radius: var(--sadu-drawer-radius) var(--sadu-drawer-radius) 0 0;
+}
+
+.sadu-drawer__roll {
+  position: absolute;
+  z-index: 1;
+  inset-block: -4px;
+  left: 0;
+  width: calc(var(--sadu-drawer-rolled) * 56px);
+  overflow: hidden;
+  border-radius: 999px / 10px;
+  container-type: size;
+  pointer-events: none;
+}
+
+.sadu-drawer[data-side="left"] .sadu-drawer__roll {
+  right: 0;
+  left: auto;
+}
+
+.sadu-drawer[data-side="bottom"] .sadu-drawer__roll {
+  display: none;
+}
+
+.sadu-drawer__rug {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100cqh;
+  height: 100cqw;
+  transform-origin: 0 0;
+  rotate: 90deg;
+  translate: 100cqw 0;
+}
+
+.sadu-drawer__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.62),
+    rgb(0 0 0 / 0.12) 20%,
+    rgb(255 255 255 / 0.3) 36%,
+    rgb(255 255 255 / 0.04) 54%,
+    rgb(0 0 0 / 0.24) 78%,
+    rgb(0 0 0 / 0.6)
+  );
+}
+
+.sadu-drawer__grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 120px;
+  margin-top: -60px;
+  cursor: grab;
+}
+
+.sadu-drawer[data-side="left"] .sadu-drawer__grip {
+  right: 0;
+  left: auto;
+}
+
+.sadu-drawer[data-side="bottom"] .sadu-drawer__grip {
+  top: 0;
+  left: 50%;
+  width: 120px;
+  height: 44px;
+  margin: -16px 0 0 -60px;
+}
+
+.sadu-drawer__peg {
+  width: 6px;
+  height: 120px;
+  transition: box-shadow var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-drawer[data-side="bottom"] .sadu-drawer__peg {
+  --sadu-wood-angle: 180deg;
+  --sadu-wood-grain: 0deg;
+  width: 120px;
+  height: 6px;
+}
+
+.sadu-drawer[data-dragging] .sadu-drawer__grip {
+  cursor: grabbing;
+}
+
+.sadu-drawer[data-dragging] .sadu-drawer__peg {
+  --sadu-wood-lift: 0 0 18px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+}
+
+.sadu-drawer__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px 24px 24px 36px;
+  overflow-y: auto;
+}
+
+.sadu-drawer[data-side="left"] .sadu-drawer__body {
+  padding: 20px 36px 24px 24px;
+}
+
+.sadu-drawer[data-side="bottom"] .sadu-drawer__body {
+  padding: 20px 24px 24px;
+}
+
+.sadu-drawer[data-specimen] {
+  height: auto;
+  min-height: 320px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-drawer__roll {
+    display: none;
+  }
+}
+
+[data-motion="reduced"] .sadu-drawer__roll {
+  display: none;
+}

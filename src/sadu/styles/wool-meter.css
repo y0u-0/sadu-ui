@@ -1,0 +1,53 @@
+.sadu-meter {
+  --cloth: var(--sadu-capsule);
+  display: grid;
+  gap: 8px;
+  width: 238px;
+  max-width: 100%;
+  font-family: var(--sadu-font);
+}
+
+.sadu-meter[data-zone="low"] {
+  --cloth: var(--sadu-saffron);
+}
+
+.sadu-meter[data-zone="high"] {
+  --cloth: var(--sadu-madder-cloth);
+}
+
+.sadu-meter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sadu-meter__label {
+  font: 600 12px/16px var(--sadu-font);
+  letter-spacing: 0.01em;
+  color: var(--sadu-ink);
+}
+
+.sadu-meter__value {
+  margin-inline-start: auto;
+  font: 500 12px/16px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink-2);
+  white-space: nowrap;
+}
+
+.sadu-meter__track {
+  display: grid;
+  grid-template-columns: repeat(calc(var(--sadu-meter-columns) * 2 + 1), minmax(0, 1fr));
+  grid-template-rows: 4px 4px;
+  column-gap: 2px;
+}
+
+.sadu-meter__float {
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px var(--sadu-edge);
+}
+
+.sadu-meter__float[data-filled] {
+  box-shadow: var(--sadu-cloth-ring);
+}

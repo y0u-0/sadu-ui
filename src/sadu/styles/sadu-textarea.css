@@ -1,0 +1,105 @@
+.sadu-textarea {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sadu-textarea__box {
+  display: block;
+  padding: 0;
+}
+
+.sadu-textarea__control {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  --sadu-textarea-line: 24px;
+  min-height: calc(var(--sadu-textarea-line) * 4 + 32px);
+  max-height: calc(var(--sadu-textarea-line) * 8 + 32px);
+  padding: 10px 14px 22px;
+  overflow-y: auto;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24'%3E%3Crect y='19.4' width='12' height='1.2' rx='.6' fill='%23a87a4f' fill-opacity='.38'/%3E%3Cpath d='M1 20.6 3.4 19.4M7 20.6 9.4 19.4' stroke='%237b5631' stroke-opacity='.3' stroke-width='.7'/%3E%3C/svg%3E");
+  background-attachment: local;
+  background-origin: content-box;
+  background-clip: content-box;
+  font: 400 14px / var(--sadu-textarea-line) var(--sadu-font);
+  color: var(--sadu-ink);
+  caret-color: var(--sadu-madder-ink);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
+.sadu-textarea__control::placeholder {
+  color: var(--sadu-ink-3);
+  opacity: 1;
+}
+
+.sadu-textarea__control:disabled {
+  cursor: not-allowed;
+}
+
+.sadu-textarea__control:lang(ar) {
+  font-family: var(--sadu-font-arabic);
+  font-size: 15px;
+}
+
+.sadu-textarea__band {
+  position: absolute;
+  inset-inline: 14px;
+  bottom: 10px;
+  height: 4px;
+  pointer-events: none;
+}
+
+.sadu-textarea__band::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 1.5px;
+  height: 1px;
+  background: var(--sadu-edge);
+}
+
+.sadu-textarea__cloth {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: round(down, calc(var(--sadu-fill) * 100%), 6px);
+  overflow: hidden;
+  border-radius: 1px;
+  box-shadow: var(--sadu-cloth-ring);
+}
+
+.sadu-textarea[data-over] .sadu-textarea__band {
+  animation: sadu-pluck 240ms linear;
+}
+
+.sadu-textarea__count {
+  justify-self: end;
+  direction: ltr;
+  unicode-bidi: isolate;
+  margin: 0;
+  font: 12px/16px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-textarea[data-near] .sadu-textarea__count {
+  color: var(--sadu-ink);
+}
+
+.sadu-textarea[data-over] .sadu-textarea__count {
+  color: var(--sadu-madder-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-textarea[data-over] .sadu-textarea__band {
+    animation: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-textarea[data-over] .sadu-textarea__band {
+  animation: none;
+}

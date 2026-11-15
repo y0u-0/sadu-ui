@@ -1,0 +1,400 @@
+:where(.sadu-eye-mark) {
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+  color: var(--sadu-madder-ink);
+}
+
+:where(.sadu-eye-mark rect) {
+  fill: currentColor;
+  transition:
+    fill var(--sadu-dur-press) var(--sadu-snap),
+    stroke var(--sadu-dur-press) var(--sadu-snap);
+}
+
+:where(.sadu-eye-mark[data-state="off"]) {
+  color: var(--sadu-edge);
+}
+
+:where(.sadu-eye-mark[data-state="off"] rect) {
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1;
+}
+
+:where(.sadu-eye-mark[data-tone="value"]) {
+  color: var(--sadu-madder-ink);
+}
+
+:where(.sadu-eye-mark[data-tone="structure"]) {
+  color: var(--sadu-ink-2);
+}
+
+:where(.sadu-eye-mark[data-tone="separator"]) {
+  color: var(--sadu-edge);
+}
+
+:where(.sadu-lozenge) {
+  --sadu-lozenge-size: 24px;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  font: 500 13px/1 var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+}
+
+:where(.sadu-lozenge)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: var(--sadu-lozenge-size);
+  height: var(--sadu-lozenge-size);
+  margin: auto;
+  box-sizing: border-box;
+  border: 1.5px solid var(--sadu-edge);
+  border-radius: 3px;
+  rotate: 45deg;
+  transition:
+    background-color var(--sadu-dur-press) var(--sadu-snap),
+    border-color var(--sadu-dur-press) var(--sadu-snap),
+    box-shadow var(--sadu-dur-press) var(--sadu-snap);
+}
+
+:where(.sadu-lozenge[data-chosen]) {
+  font-weight: 600;
+  color: #fbf7f0;
+}
+
+:where(.sadu-lozenge[data-chosen])::before {
+  border-color: var(--sadu-madder-cloth);
+  background: var(--sadu-madder-cloth);
+  box-shadow:
+    inset 0 0 0 1.5px var(--sadu-madder-cloth),
+    inset 0 0 0 2.5px color-mix(in srgb, var(--sadu-wool) 55%, transparent);
+}
+
+:where(.sadu-lozenge__label) {
+  position: relative;
+}
+
+:where(.sadu-cord) {
+  display: block;
+  width: 100%;
+  flex: none;
+}
+
+:where(.sadu-thread) {
+  display: block;
+  flex: none;
+  background: var(--sadu-edge);
+}
+
+:where(.sadu-thread[data-orientation="horizontal"]) {
+  width: 100%;
+  height: 1px;
+}
+
+:where(.sadu-thread[data-orientation="vertical"]) {
+  width: 1px;
+  align-self: stretch;
+}
+
+:where(.sadu-thread[data-dashed]) {
+  background: repeating-linear-gradient(90deg, var(--sadu-edge) 0 6px, transparent 6px 10px);
+}
+
+:where(.sadu-thread[data-dashed][data-orientation="vertical"]) {
+  background: repeating-linear-gradient(180deg, var(--sadu-edge) 0 6px, transparent 6px 10px);
+}
+
+:where(.sadu-fringe) {
+  display: block;
+  width: 100%;
+}
+
+:where(.sadu-empty) {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px 0;
+  color: var(--sadu-edge);
+}
+
+:where(.sadu-empty svg rect) {
+  fill: currentColor;
+}
+
+:where(.sadu-empty__text) {
+  font: 14px/20px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+:where(.sadu-yarn) {
+  --yarn-light: 1px;
+  --yarn-mid: 3px;
+  --yarn-dark: 4px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    118deg,
+    var(--wool-light) 0 var(--yarn-light),
+    var(--wool) var(--yarn-light) var(--yarn-mid),
+    var(--wool-dark) var(--yarn-mid) var(--yarn-dark)
+  );
+  box-shadow:
+    inset 0 -2px 4px rgb(0 0 0 / 0.28),
+    inset 0 0 0 1px rgb(0 0 0 / 0.18),
+    var(--sadu-cloth-ring);
+}
+
+:where(.sadu-yarn)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    28deg,
+    var(--wool-light) 0 var(--yarn-light),
+    var(--wool) var(--yarn-light) var(--yarn-mid),
+    var(--wool-dark) var(--yarn-mid) var(--yarn-dark)
+  );
+  clip-path: ellipse(34% 50% at 62% 50%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+
+:where(.sadu-skein-dot) {
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+}
+
+:where(.sadu-skein-dot[data-size="20"]) {
+  --yarn-light: 1.25px;
+  --yarn-mid: 3.5px;
+  --yarn-dark: 4.5px;
+  width: 20px;
+  height: 20px;
+}
+
+:where(.sadu-swatch) {
+  position: relative;
+  display: block;
+  flex: none;
+  overflow: hidden;
+  width: 48px;
+  height: 22px;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-cloth-ring);
+}
+
+:where(.sadu-swatch[data-size="sm"]) {
+  width: 32px;
+  height: 16px;
+}
+
+:where(.sadu-swatch[data-size="lg"]) {
+  width: 64px;
+  height: 30px;
+}
+
+:where(.sadu-swatch) > .sadu-weave {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  width: 100%;
+  height: calc(var(--sadu-swatch-band) * 3);
+  translate: 0 -50%;
+}
+
+:where(.sadu-kbd) {
+  display: inline-flex;
+  gap: 3px;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font: inherit;
+}
+
+:where(.sadu-kbd__key) {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--sadu-kbd-edge, var(--sadu-edge));
+  border-radius: 4px;
+  font: 500 11px/1 var(--sadu-font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-kbd-ink, var(--sadu-ink-2));
+}
+
+:where(.sadu-float-highlight) {
+  --sadu-kbd-ink: currentColor;
+  --sadu-kbd-edge: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+:where(.sadu-chip) {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  height: 26px;
+  padding-inline: 8px;
+  border: 1px solid var(--sadu-edge);
+  border-radius: var(--sadu-radius-compact);
+  background: var(--sadu-chip);
+  font: 500 13px/18px var(--sadu-font);
+  color: var(--sadu-ink);
+  vertical-align: middle;
+}
+
+:where(.sadu-chip:has(> .sadu-chip__sample)) {
+  padding-inline-start: 4px;
+}
+
+:where(.sadu-chip:has(> .sadu-chip__remove)) {
+  padding-inline-end: 4px;
+}
+
+:where(.sadu-chip__sample) {
+  display: inline-flex;
+  flex: none;
+}
+
+:where(.sadu-chip__label) {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.sadu-chip__remove) {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  color: var(--sadu-ink-2);
+  cursor: pointer;
+  transition:
+    background-color var(--sadu-dur-press) var(--sadu-snap),
+    color var(--sadu-dur-press) var(--sadu-snap);
+}
+
+:where(.sadu-chip__remove:hover) {
+  background: var(--sadu-sand);
+  color: var(--sadu-ink);
+}
+
+:where(.sadu-chip__remove:focus-visible) {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+:where(.sadu-icon-button) {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--sadu-h-control);
+  height: var(--sadu-h-control);
+  border-radius: var(--sadu-radius-control);
+  color: var(--sadu-ink-2);
+  cursor: pointer;
+  transition:
+    background-color var(--sadu-dur-press) var(--sadu-snap),
+    color var(--sadu-dur-press) var(--sadu-snap),
+    box-shadow var(--sadu-dur-press) var(--sadu-snap);
+}
+
+:where(.sadu-icon-button[data-size="28"]) {
+  width: var(--sadu-h-compact);
+  height: var(--sadu-h-compact);
+  border-radius: var(--sadu-radius-compact);
+}
+
+:where(.sadu-icon-button[data-variant="outline"]) {
+  background: var(--sadu-surface);
+  box-shadow: inset 0 0 0 1px var(--sadu-edge);
+  color: var(--sadu-ink);
+}
+
+:where(.sadu-icon-button:hover, .sadu-icon-button[data-open]) {
+  background: var(--sadu-sand);
+  color: var(--sadu-ink);
+}
+
+:where(.sadu-icon-button:focus-visible) {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+:where(.sadu-icon-button[data-size="28"]:focus-visible) {
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+:where(.sadu-icon-button[data-disabled]) {
+  color: var(--sadu-ink-3);
+  background: none;
+  cursor: not-allowed;
+}
+
+:where(.sadu-wood-button) {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--sadu-h-control);
+  height: var(--sadu-h-control);
+  color: #2b1d10;
+  cursor: pointer;
+  transition:
+    translate var(--sadu-dur-press) var(--sadu-snap),
+    filter var(--sadu-dur-press) var(--sadu-snap);
+}
+
+:where(.sadu-wood-button) svg {
+  filter: drop-shadow(0 1px 0 rgb(255 255 255 / 0.4));
+}
+
+:where(.sadu-wood-button:hover) {
+  filter: brightness(1.04);
+}
+
+:where(.sadu-wood-button:active, .sadu-wood-button[data-pressed]) {
+  translate: 0 1px;
+  filter: brightness(0.92);
+}
+
+:where(.sadu-wood-button:focus-visible) {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+:where(.sadu-wood-button[data-disabled]) {
+  filter: saturate(0.3);
+  translate: none;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.sadu-wood-button) {
+    transition-property: filter;
+  }
+
+  :where(.sadu-wood-button:active, .sadu-wood-button[data-pressed]) {
+    translate: none;
+  }
+}

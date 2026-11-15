@@ -1,0 +1,203 @@
+.sadu-code {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  margin: 0;
+  padding-top: 4px;
+  border-radius: var(--sadu-radius-control);
+  background: var(--sadu-surface);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+  font-family: var(--sadu-font);
+}
+
+.sadu-code__cord {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 6px;
+  width: calc(100% - 12px);
+  box-shadow: var(--sadu-contact);
+}
+
+.sadu-code__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 48px;
+  padding-inline: 10px 6px;
+  box-shadow: inset 0 -1px 0 var(--sadu-line);
+}
+
+.sadu-code__file {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  padding-inline-start: 4px;
+  font: 12px/16px var(--sadu-font-mono);
+  color: var(--sadu-ink-2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.sadu-code__tabs {
+  display: flex;
+  flex: 0 1 auto;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sadu-code__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.sadu-code__tab {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: var(--sadu-h-compact);
+  padding-inline: 10px;
+  border-radius: var(--sadu-radius-compact);
+  font: 500 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--sadu-dur-press),
+    color var(--sadu-dur-press);
+}
+
+.sadu-code__tab:hover {
+  color: var(--sadu-ink);
+  background: var(--sadu-sand);
+}
+
+.sadu-code__tab[data-selected] {
+  color: var(--sadu-ink);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--sadu-edge);
+}
+
+.sadu-code__tab:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-code__tabs + .sadu-code__file {
+  text-align: end;
+}
+
+.sadu-code__copy > * {
+  grid-area: 1 / 1;
+  transition: opacity var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-code__copy .sadu-code__copied {
+  opacity: 0;
+}
+
+.sadu-code__copy[data-copied] .sadu-code__copied {
+  opacity: 1;
+}
+
+.sadu-code__copy[data-copied] .sadu-code__copy-icon {
+  opacity: 0;
+}
+
+.sadu-code__panel {
+  min-width: 0;
+  outline: none;
+}
+
+.sadu-code__panel:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-code__scroll {
+  min-width: 0;
+  border-radius: 0 0 var(--sadu-radius-control) var(--sadu-radius-control);
+  text-align: left;
+}
+
+.sadu-code__scroll::after {
+  --scroll-area-overflow-y-end: inherit;
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: min(32px, var(--scroll-area-overflow-y-end, 0px));
+  border-radius: inherit;
+  background: linear-gradient(to bottom, transparent, var(--sadu-surface));
+  pointer-events: none;
+}
+
+.sadu-code .sadu-scroll__viewport {
+  max-height: calc(round(down, var(--sadu-code-max-height) - 10px, 20px) + 10px);
+}
+
+.sadu-code__pre {
+  margin: 0;
+  padding-block: 10px;
+  font: 13px/20px var(--sadu-font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+  tab-size: 2;
+}
+
+.sadu-code__code {
+  display: grid;
+  min-width: max-content;
+  font: inherit;
+}
+
+.sadu-code__line {
+  display: grid;
+  grid-template-columns: 48px max-content;
+}
+
+.sadu-code__number {
+  padding-inline-end: 12px;
+  text-align: end;
+  color: var(--sadu-ink-2);
+  box-shadow: inset -1px 0 0 var(--sadu-edge);
+  user-select: none;
+}
+
+.sadu-code__line[data-highlighted] .sadu-code__digits {
+  display: inline-block;
+  padding-inline: 6px;
+  margin-inline-end: -6px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.sadu-code__text {
+  padding-inline: 14px 24px;
+}
+
+.sadu-code__token[data-kind="keyword"] {
+  color: var(--sadu-madder-ink);
+}
+
+.sadu-code__token[data-kind="string"] {
+  color: var(--sadu-code-string, var(--sadu-indigo));
+}
+
+[data-theme="tent"] .sadu-code {
+  --sadu-code-string: #9fb4dd;
+}
+
+.sadu-code__token[data-kind="comment"] {
+  color: var(--sadu-ink-2);
+  font-style: italic;
+}

@@ -1,0 +1,246 @@
+@property --sadu-button-woven {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+.sadu-button {
+  --sadu-button-on-madder: var(--sadu-wool);
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--sadu-h-control);
+  padding: 0 16px;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-control);
+  font: 600 14px/20px var(--sadu-font);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    scale var(--sadu-dur-press) var(--sadu-snap),
+    background-color var(--sadu-dur-press) var(--sadu-snap),
+    color var(--sadu-dur-press) var(--sadu-snap),
+    box-shadow var(--sadu-dur-press) var(--sadu-snap);
+}
+
+[data-theme="tent"] .sadu-button {
+  --sadu-button-on-madder: #fbf7f0;
+}
+
+.sadu-button:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-button:active:not([data-disabled], [data-pending], [data-weaving]) {
+  scale: 0.97;
+}
+
+.sadu-button[data-size="sm"] {
+  height: var(--sadu-h-compact);
+  padding: 0 10px;
+  border-radius: var(--sadu-radius-compact);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.sadu-button[data-size="lg"] {
+  height: 44px;
+  padding: 0 20px;
+}
+
+.sadu-button[data-size="icon"] {
+  width: 36px;
+  padding: 0;
+}
+
+.sadu-button__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sadu-button__label svg {
+  flex: none;
+}
+
+.sadu-button[data-variant="primary"] {
+  border-radius: 10px 10px 4px 4px;
+  background: var(--sadu-madder-cloth);
+  color: var(--sadu-button-on-madder);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 1px 2px rgb(31 24 19 / 0.22),
+    0 4px 8px -4px rgb(31 24 19 / 0.3);
+}
+
+.sadu-button[data-variant="primary"]:active:not([data-disabled], [data-pending], [data-weaving]) {
+  box-shadow:
+    inset 0 1px 2px rgb(31 24 19 / 0.35),
+    0 0 0 rgb(31 24 19 / 0),
+    0 1px 2px -1px rgb(31 24 19 / 0.3);
+}
+
+.sadu-button[data-variant="primary"][data-size="sm"] {
+  border-radius: var(--sadu-radius-compact) var(--sadu-radius-compact) 3px 3px;
+}
+
+.sadu-button[data-variant="primary"]:hover:not([data-disabled], [data-pending], [data-weaving]) {
+  background: color-mix(in srgb, var(--sadu-madder-cloth) 94%, var(--sadu-black));
+}
+
+.sadu-button__hem {
+  container-type: inline-size;
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  overflow: hidden;
+  background:
+    linear-gradient(color-mix(in srgb, var(--sadu-wool) 55%, transparent) 0 0) 0 0.5px / 100% 1px no-repeat,
+    linear-gradient(color-mix(in srgb, var(--sadu-wool) 55%, transparent) 0 0) 0 2.5px / 100% 1px no-repeat;
+  transition: height var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-button[data-variant="primary"]:active:not([data-disabled], [data-pending], [data-weaving]) .sadu-button__hem {
+  height: 2px;
+}
+
+.sadu-button__cloth {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: calc(round(down, var(--sadu-button-woven) * 100%, 6px) + round(down, var(--sadu-button-woven), 1) * 6px);
+}
+
+.sadu-button__cloth .sadu-weave {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 100cqw;
+}
+
+.sadu-button:is([data-pending], [data-weaving]) {
+  pointer-events: none;
+  cursor: progress;
+}
+
+.sadu-button__beater {
+  position: absolute;
+  top: 6px;
+  bottom: 0;
+  inset-inline-start: calc(round(down, var(--sadu-button-woven) * 100%, 6px) - 2px);
+  width: 4px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sadu-button:is([data-pending], [data-weaving]) {
+  animation: sadu-button-weave 900ms linear infinite;
+}
+
+.sadu-button:is([data-pending], [data-weaving]) .sadu-button__beater {
+  opacity: 1;
+}
+
+@keyframes sadu-button-weave {
+  from {
+    --sadu-button-woven: 0;
+  }
+  to {
+    --sadu-button-woven: 1;
+  }
+}
+
+.sadu-button[data-variant="secondary"] {
+  background: var(--sadu-surface);
+  color: var(--sadu-ink);
+  box-shadow: inset 0 0 0 1px var(--sadu-edge);
+}
+
+.sadu-button[data-variant="secondary"]:hover:not([data-disabled], [data-pending], [data-weaving]) {
+  background: color-mix(in srgb, var(--sadu-surface) 94%, var(--sadu-ink));
+}
+
+.sadu-button[data-variant="ghost"] {
+  background: transparent;
+  color: var(--sadu-ink);
+}
+
+.sadu-button + .sadu-button[data-variant="ghost"],
+.sadu-button[data-variant="ghost"]:has(+ .sadu-button) {
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+}
+
+.sadu-button[data-variant="ghost"]:hover:not([data-disabled], [data-pending], [data-weaving]) {
+  background: var(--sadu-sand);
+}
+
+.sadu-button[data-variant="destructive"] {
+  background: var(--sadu-surface);
+  color: var(--sadu-madder-ink);
+  box-shadow: inset 0 0 0 1px var(--sadu-madder-ink);
+}
+
+.sadu-button[data-variant="destructive"]:hover:not([data-disabled], [data-pending], [data-weaving]) {
+  background: var(--sadu-madder-cloth);
+  color: var(--sadu-button-on-madder);
+}
+
+.sadu-button[data-disabled] {
+  background: var(--sadu-wool);
+  color: var(--sadu-ink-3);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+  cursor: not-allowed;
+}
+
+.sadu-button[data-disabled] .sadu-button__hem {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-button {
+    transition-property: background-color, color, box-shadow;
+  }
+
+  .sadu-button:active:not([data-disabled], [data-pending], [data-weaving]) {
+    scale: none;
+  }
+
+  .sadu-button:is([data-pending], [data-weaving]) {
+    animation: sadu-button-wait 1200ms ease-in-out infinite alternate;
+  }
+
+  .sadu-button:is([data-pending], [data-weaving]) .sadu-button__beater {
+    opacity: 0;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-button {
+  transition-property: background-color, color, box-shadow;
+}
+
+:where([data-motion="reduced"]) .sadu-button:active:not([data-disabled], [data-pending], [data-weaving]) {
+  scale: none;
+}
+
+:where([data-motion="reduced"]) .sadu-button:is([data-pending], [data-weaving]) {
+  animation: sadu-button-wait 1200ms ease-in-out infinite alternate;
+}
+
+:where([data-motion="reduced"]) .sadu-button:is([data-pending], [data-weaving]) .sadu-button__beater {
+  opacity: 0;
+}
+
+@keyframes sadu-button-wait {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.7;
+  }
+}

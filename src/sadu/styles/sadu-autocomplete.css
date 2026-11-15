@@ -1,0 +1,32 @@
+.sadu-autocomplete__control[data-open]::selection {
+  background: color-mix(in srgb, var(--sadu-madder-ink) 8%, transparent);
+  color: var(--sadu-ink-3);
+  text-decoration: underline dashed var(--sadu-ink-3) 2px;
+  text-underline-offset: 3px;
+}
+
+.sadu-autocomplete__icon {
+  flex: none;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-autocomplete__item {
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 36px;
+  padding-inline: 10px;
+}
+
+.sadu-autocomplete__item[data-sampled] {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 40px;
+  padding-inline: 6px 10px;
+}
+
+.sadu-autocomplete__text mark {
+  font-weight: 600;
+}
+
+.sadu-autocomplete__text mark {
+  background: none;
+  color: inherit;
+}

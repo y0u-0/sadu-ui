@@ -1,0 +1,83 @@
+.sadu-dialog.sadu-alert-dialog {
+  --sadu-dur-thump: 180ms;
+  width: min(var(--sadu-dialog-sm), calc(100vw - 32px));
+  clip-path: none;
+  transition:
+    opacity var(--sadu-dur-pop-out) linear,
+    translate var(--sadu-dur-thump) var(--sadu-snap);
+}
+
+.sadu-dialog.sadu-alert-dialog:is([data-starting-style], [data-ending-style]) {
+  clip-path: none;
+  opacity: 0;
+  translate: 0 -4px;
+}
+
+.sadu-dialog.sadu-alert-dialog[data-ending-style] {
+  transition-duration: var(--sadu-dur-pop-out);
+}
+
+.sadu-alert-dialog__warp {
+  position: relative;
+  height: 33px;
+  margin: 6px 6px 0;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  background: var(--sadu-surface);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+}
+
+.sadu-alert-dialog__threads {
+  position: absolute;
+  inset: 0;
+}
+
+.sadu-alert-dialog__cloth {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 40%;
+  filter: drop-shadow(1px 0 0 color-mix(in srgb, var(--sadu-black) 35%, transparent));
+  animation: sadu-alert-dialog-unravel var(--sadu-dur-throw) steps(6, end) var(--sadu-dur-pop-in) both;
+}
+
+.sadu-alert-dialog__cloth:dir(rtl) {
+  scale: -1 1;
+}
+
+.sadu-alert-dialog__fell {
+  height: 100%;
+}
+
+@keyframes sadu-alert-dialog-unravel {
+  from {
+    width: 52%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-dialog.sadu-alert-dialog:is([data-starting-style], [data-ending-style]) {
+    translate: none;
+  }
+
+  .sadu-alert-dialog__cloth {
+    animation: none;
+  }
+}
+
+[data-motion="reduced"] .sadu-dialog.sadu-alert-dialog:is([data-starting-style], [data-ending-style]) {
+  translate: none;
+}
+
+[data-motion="reduced"] .sadu-alert-dialog__cloth {
+  animation: none;
+}
+
+.sadu-dialog.sadu-alert-dialog[data-specimen] {
+  max-width: var(--sadu-dialog-sm);
+  transition: none;
+}
+
+.sadu-alert-dialog[data-specimen] .sadu-alert-dialog__cloth {
+  animation: none;
+}

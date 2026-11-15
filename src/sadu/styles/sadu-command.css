@@ -1,0 +1,182 @@
+.sadu-command {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-popup);
+  background: var(--sadu-raised);
+  color: var(--sadu-ink);
+  box-shadow: var(--sadu-float);
+  font-family: var(--sadu-font);
+}
+
+.sadu-command__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 16px;
+  box-shadow: inset 0 -1px 0 var(--sadu-edge);
+  transition: box-shadow var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-command__field:focus-within {
+  box-shadow: inset 0 -1.5px 0 var(--sadu-ink);
+}
+
+.sadu-command__field:focus-within .sadu-dhurs__cloth {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 600ms cubic-bezier(0.45, 0, 0.3, 1);
+}
+
+.sadu-command__field:focus-within .sadu-dhurs__beater {
+  animation: sadu-dhurs-beat 600ms cubic-bezier(0.45, 0, 0.3, 1) both;
+}
+
+.sadu-command__beater {
+  flex: none;
+  width: 4px;
+  height: 22px;
+  margin-inline: 2px 4px;
+}
+
+.sadu-command__input {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  font: 400 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  caret-color: var(--sadu-madder-ink);
+}
+
+.sadu-command__input::placeholder {
+  color: var(--sadu-ink-3);
+  opacity: 1;
+}
+
+.sadu-command__list {
+  max-height: 284px;
+  padding: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 6px;
+}
+
+.sadu-command:has(.sadu-command__empty[data-empty]) .sadu-command__list {
+  display: none;
+}
+
+.sadu-command__group + .sadu-command__group {
+  margin-top: 4px;
+}
+
+.sadu-command__label {
+  padding: 8px 10px 4px;
+  font: 600 12px/16px var(--sadu-font);
+  letter-spacing: 0.01em;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-command__separator {
+  height: 1px;
+  margin: 6px 10px;
+  background: var(--sadu-edge);
+}
+
+.sadu-command__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--sadu-h-control);
+  padding: 0 10px;
+  border-radius: var(--sadu-radius-item);
+  font: 400 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sadu-command__item:has(.sadu-swatch, .sadu-skein-dot, .sadu-avatar) {
+  height: var(--sadu-h-field);
+}
+
+.sadu-command__item[data-highlighted] {
+  background: var(--sadu-sand);
+}
+
+.sadu-command__item[data-disabled] {
+  color: var(--sadu-ink-3);
+  cursor: default;
+}
+
+.sadu-command__item[data-pending] {
+  cursor: progress;
+}
+
+.sadu-command__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-command__icon svg {
+  display: block;
+}
+
+.sadu-command__text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sadu-command__match {
+  background: none;
+  color: inherit;
+}
+
+.sadu-command__trailing {
+  color: var(--sadu-ink-2);
+}
+
+.sadu-command__trailing [lang="ar"] {
+  font-size: 16px;
+  color: var(--sadu-ink);
+}
+
+.sadu-command__keys {
+  display: inline-flex;
+}
+
+.sadu-command__empty {
+  padding: 12px 16px 16px;
+}
+
+.sadu-command__empty:not([data-empty]) {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-command__field:focus-within .sadu-dhurs__cloth {
+    opacity: 1;
+    transition: opacity var(--sadu-dur-press) ease-out;
+  }
+
+  .sadu-command__field:focus-within .sadu-dhurs__beater {
+    animation: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-command__field:focus-within .sadu-dhurs__cloth {
+  opacity: 1;
+  transition: opacity var(--sadu-dur-press) ease-out;
+}
+
+:where([data-motion="reduced"]) .sadu-command__field:focus-within .sadu-dhurs__beater {
+  animation: none;
+}

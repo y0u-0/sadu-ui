@@ -1,0 +1,98 @@
+.sadu-tooltip {
+  --sadu-tooltip-travel: 2px;
+  --sadu-cord-a: var(--sadu-madder-cloth);
+  --sadu-cord-b: var(--sadu-capsule-ink);
+  --sadu-kbd-ink: var(--sadu-capsule-ink);
+  --sadu-kbd-edge: color-mix(in srgb, var(--sadu-capsule-ink) 55%, transparent);
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  margin: 0;
+  padding: 5px 8px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: var(--sadu-capsule);
+  color: var(--sadu-capsule-ink);
+  font: 500 12px/16px var(--sadu-font);
+  white-space: nowrap;
+  box-shadow:
+    var(--sadu-cloth-ring),
+    0 6px 16px -6px color-mix(in srgb, var(--sadu-black) 50%, transparent);
+  transition:
+    opacity var(--sadu-dur-press) var(--sadu-snap),
+    translate var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-tooltip:is([data-starting-style], [data-ending-style]) {
+  opacity: 0;
+}
+
+.sadu-tooltip[data-ending-style] {
+  transition-duration: var(--sadu-dur-pop-out);
+}
+
+.sadu-tooltip[data-side="top"]:is([data-starting-style], [data-ending-style]) {
+  translate: 0 var(--sadu-tooltip-travel);
+}
+
+.sadu-tooltip[data-side="bottom"]:is([data-starting-style], [data-ending-style]) {
+  translate: 0 calc(var(--sadu-tooltip-travel) * -1);
+}
+
+.sadu-tooltip[data-side="left"]:is([data-starting-style], [data-ending-style]) {
+  translate: var(--sadu-tooltip-travel) 0;
+}
+
+.sadu-tooltip[data-side="right"]:is([data-starting-style], [data-ending-style]) {
+  translate: calc(var(--sadu-tooltip-travel) * -1) 0;
+}
+
+.sadu-tooltip[data-instant],
+.sadu-tooltip[data-specimen] {
+  transition: none;
+}
+
+.sadu-tooltip__cord {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  container-type: size;
+}
+
+.sadu-tooltip[data-side="bottom"] .sadu-tooltip__cord {
+  inset: 0 0 auto;
+}
+
+.sadu-tooltip:is([data-side="left"], [data-side="right"]) .sadu-tooltip__cord {
+  inset: 0 auto 0 0;
+  width: 2px;
+  height: auto;
+}
+
+.sadu-tooltip[data-side="left"] .sadu-tooltip__cord {
+  inset: 0 0 0 auto;
+}
+
+.sadu-tooltip:is([data-side="left"], [data-side="right"]) .sadu-cord {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100cqh;
+  transform-origin: 0 0;
+  rotate: -90deg;
+  translate: 0 100cqh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-tooltip {
+    --sadu-tooltip-travel: 0px;
+  }
+}
+
+[data-motion="reduced"] .sadu-tooltip {
+  --sadu-tooltip-travel: 0px;
+}

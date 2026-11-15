@@ -1,0 +1,121 @@
+.sadu-scroll {
+  overflow: hidden;
+  font-family: var(--sadu-font);
+}
+
+.sadu-scroll__viewport {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  outline: none;
+}
+
+.sadu-scroll:has(> .sadu-scroll__viewport:focus-visible) {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-scroll__bar {
+  opacity: 0;
+  transition: opacity var(--sadu-dur-throw-far) var(--sadu-unroll-out);
+}
+
+.sadu-scroll__bar[data-visible] {
+  opacity: 1;
+  transition-duration: var(--sadu-dur-press);
+}
+
+.sadu-scroll__bar[data-orientation="vertical"] {
+  width: 12px;
+  margin: 2px;
+}
+
+.sadu-scroll__bar[data-orientation="horizontal"] {
+  height: 12px;
+  margin: 2px;
+}
+
+.sadu-scroll__bar::before {
+  content: "";
+  position: absolute;
+  background: var(--sadu-edge);
+}
+
+.sadu-scroll__bar[data-orientation="vertical"]::before {
+  inset-block: 0;
+  inset-inline-start: calc(50% - 0.5px);
+  width: 1px;
+}
+
+.sadu-scroll__bar[data-orientation="horizontal"]::before {
+  inset-inline: 0;
+  top: calc(50% - 0.5px);
+  height: 1px;
+}
+
+.sadu-scroll__thumb {
+  position: relative;
+  cursor: grab;
+}
+
+.sadu-scroll__thumb[data-orientation="vertical"] {
+  width: 100%;
+}
+
+.sadu-scroll__thumb[data-orientation="horizontal"] {
+  height: 100%;
+}
+
+.sadu-scroll__thumb[data-dragging] {
+  cursor: grabbing;
+}
+
+.sadu-scroll__wood.sadu-wood {
+  position: absolute;
+  transition:
+    width var(--sadu-dur-press) var(--sadu-snap),
+    height var(--sadu-dur-press) var(--sadu-snap),
+    filter var(--sadu-dur-press);
+}
+
+.sadu-scroll__thumb[data-orientation="vertical"] .sadu-scroll__wood {
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: 6px;
+  translate: -50% 0;
+}
+
+.sadu-scroll__thumb[data-orientation="vertical"] .sadu-scroll__wood:dir(rtl) {
+  translate: 50% 0;
+}
+
+.sadu-scroll__thumb[data-orientation="horizontal"] .sadu-scroll__wood {
+  inset-inline: 0;
+  top: 50%;
+  height: 6px;
+  translate: 0 -50%;
+}
+
+.sadu-scroll__bar:hover .sadu-scroll__thumb[data-orientation="vertical"] .sadu-scroll__wood,
+.sadu-scroll__thumb[data-orientation="vertical"][data-dragging] .sadu-scroll__wood {
+  width: 8px;
+}
+
+.sadu-scroll__bar:hover .sadu-scroll__thumb[data-orientation="horizontal"] .sadu-scroll__wood,
+.sadu-scroll__thumb[data-orientation="horizontal"][data-dragging] .sadu-scroll__wood {
+  height: 8px;
+}
+
+.sadu-scroll__thumb[data-dragging] .sadu-scroll__wood {
+  filter: brightness(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-scroll__wood.sadu-wood {
+    transition: none;
+  }
+}
+
+[data-motion="reduced"] .sadu-scroll__wood.sadu-wood {
+  transition: none;
+}

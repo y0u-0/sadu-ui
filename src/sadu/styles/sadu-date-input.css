@@ -1,0 +1,107 @@
+.sadu-date {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sadu-date-input {
+  gap: 0;
+  padding-inline: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sadu-date-input__float {
+  position: absolute;
+  top: 50%;
+  left: var(--sadu-float-left, 0);
+  width: var(--sadu-float-width, 0);
+  height: 24px;
+  margin-block-start: -12px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    left var(--sadu-dur-pop-in) var(--sadu-throw),
+    width var(--sadu-dur-pop-in) var(--sadu-throw),
+    opacity var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-date-input[data-float] .sadu-date-input__float {
+  opacity: 1;
+}
+
+.sadu-date-input__segment {
+  all: unset;
+  position: relative;
+  box-sizing: content-box;
+  height: 24px;
+  padding-inline: 6px;
+  border-radius: 12px;
+  font: 400 14px/24px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--sadu-ink);
+  caret-color: transparent;
+  transition: color var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-date-input__segment::selection {
+  background: transparent;
+}
+
+.sadu-date-input__segment[data-empty] {
+  color: var(--sadu-ink-3);
+  background: repeating-linear-gradient(90deg, var(--sadu-edge) 0 6px, transparent 6px 10px) 6px calc(100% - 2px) / calc(100% - 12px) 1px no-repeat;
+}
+
+.sadu-date-input__segment:focus {
+  color: var(--sadu-capsule-ink);
+  background: none;
+}
+
+.sadu-date-input__literal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 24px;
+  padding-inline: 3px;
+  font: 400 14px/24px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  white-space: pre;
+}
+
+.sadu-date-input__literal:not(:has(svg)) {
+  width: 6px;
+  padding: 0;
+  overflow: hidden;
+  color: transparent;
+}
+
+.sadu-date-input[data-disabled] .sadu-date-input__segment,
+.sadu-date-input[data-disabled] .sadu-date-input__literal {
+  color: var(--sadu-ink-3);
+}
+
+.sadu-date-input:dir(rtl):is(.sadu-time-input, :not(:lang(ar), :lang(fa), :lang(he), :lang(ur))) {
+  direction: ltr;
+  justify-content: flex-end;
+}
+
+.sadu-date__hijri {
+  margin: 0;
+  font: 13px/18px var(--sadu-font-arabic);
+  color: var(--sadu-ink-2);
+}
+
+.sadu-date__hijri:empty {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-date-input__float {
+    transition: opacity var(--sadu-dur-press) ease-out;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-date-input__float {
+  transition: opacity var(--sadu-dur-press) ease-out;
+}

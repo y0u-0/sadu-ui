@@ -1,0 +1,182 @@
+@property --sadu-warp-woven {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.sadu-warp-toggle-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.sadu-warp-toggle-group[data-orientation="vertical"] {
+  flex-direction: column;
+}
+
+.sadu-warp-toggle {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--sadu-h-control);
+  min-width: var(--sadu-h-control);
+  padding: 0 14px;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-control);
+  box-shadow: inset 0 0 0 1px var(--sadu-edge);
+  font: 500 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color var(--sadu-dur-press) var(--sadu-snap),
+    box-shadow var(--sadu-dur-press) var(--sadu-snap),
+    scale var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-warp-toggle:not(:has(.sadu-warp-toggle__label)) {
+  padding: 0;
+}
+
+.sadu-warp-toggle:hover:not([data-disabled]) .sadu-warp-toggle__warp {
+  opacity: 0.8;
+}
+
+.sadu-warp-toggle:active:not([data-disabled]) {
+  scale: 0.97;
+}
+
+.sadu-warp-toggle:focus-visible {
+  z-index: 1;
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-warp-toggle[data-pressed] {
+  color: var(--sadu-wool);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cloth) 70%, var(--sadu-black));
+}
+
+.sadu-warp-toggle__face {
+  container-type: inline-size;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sadu-warp-toggle__warp {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  mask-image: linear-gradient(#000 0 10px, transparent 10px calc(100% - 10px), #000 calc(100% - 10px));
+  transition: opacity var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-warp-toggle[data-disabled] .sadu-warp-toggle__warp {
+  opacity: 0.5;
+  mask-image:
+    linear-gradient(#000 0 10px, transparent 10px calc(100% - 10px), #000 calc(100% - 10px)),
+    repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 10px);
+  mask-composite: intersect;
+}
+
+.sadu-warp-toggle__cloth {
+  --sadu-warp-woven: 0;
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: calc(round(down, var(--sadu-warp-woven) * 100%, 6px) + round(down, var(--sadu-warp-woven), 1) * 6px);
+  transition: --sadu-warp-woven var(--sadu-dur-press) linear;
+}
+
+.sadu-warp-toggle[data-pressed] .sadu-warp-toggle__cloth {
+  --sadu-warp-woven: 1;
+  transition-duration: var(--sadu-dur-pop-in);
+}
+
+.sadu-warp-toggle[data-pressed] :is(.sadu-warp-toggle__label, .sadu-warp-toggle__icon) {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 2px var(--cloth);
+}
+
+.sadu-warp-toggle__icon {
+  display: grid;
+  place-items: center;
+}
+
+.sadu-warp-toggle__icon svg {
+  display: block;
+}
+
+.sadu-warp-toggle__label {
+  display: inline-grid;
+}
+
+.sadu-warp-toggle__label > span,
+.sadu-warp-toggle__label::after {
+  grid-area: 1 / 1;
+}
+
+.sadu-warp-toggle__label::after {
+  content: attr(data-label);
+  font-weight: 600;
+  visibility: hidden;
+}
+
+.sadu-warp-toggle[data-pressed] .sadu-warp-toggle__label {
+  font-weight: 600;
+}
+
+.sadu-warp-toggle[data-disabled] {
+  color: var(--sadu-ink-3);
+  box-shadow: inset 0 0 0 1px var(--sadu-line);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-warp-toggle {
+    transition-property: color, box-shadow;
+  }
+
+  .sadu-warp-toggle:active:not([data-disabled]) {
+    scale: none;
+  }
+
+  .sadu-warp-toggle__cloth,
+  .sadu-warp-toggle[data-pressed] .sadu-warp-toggle__cloth {
+    width: 100%;
+    opacity: 0;
+    transition: opacity var(--sadu-dur-press) linear;
+  }
+
+  .sadu-warp-toggle[data-pressed] .sadu-warp-toggle__cloth {
+    opacity: 1;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-warp-toggle {
+  transition-property: color, box-shadow;
+}
+
+:where([data-motion="reduced"]) .sadu-warp-toggle:active:not([data-disabled]) {
+  scale: none;
+}
+
+:where([data-motion="reduced"]) .sadu-warp-toggle__cloth,
+:where([data-motion="reduced"]) .sadu-warp-toggle[data-pressed] .sadu-warp-toggle__cloth {
+  width: 100%;
+  opacity: 0;
+  transition: opacity var(--sadu-dur-press) linear;
+}
+
+:where([data-motion="reduced"]) .sadu-warp-toggle[data-pressed] .sadu-warp-toggle__cloth {
+  opacity: 1;
+}

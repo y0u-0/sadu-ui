@@ -1,0 +1,119 @@
+@property --sadu-pagination-woven {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+.sadu-eye-pagination {
+  --sadu-pagination-cell: var(--sadu-h-control);
+  font-family: var(--sadu-font);
+}
+
+.sadu-eye-pagination__loom {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  padding-bottom: 8px;
+}
+
+.sadu-eye-pagination__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sadu-eye-pagination__item {
+  display: flex;
+}
+
+.sadu-eye-pagination__warp {
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--sadu-pagination-cell) + 3px);
+  inset-inline-start: calc(var(--sadu-pagination-cell) * 1.5);
+  width: calc((var(--sadu-pagination-count) - 1) * var(--sadu-pagination-cell));
+  height: 4px;
+  background: linear-gradient(var(--sadu-edge), var(--sadu-edge)) 0 1.5px / 100% 1px no-repeat;
+}
+
+.sadu-eye-pagination__cloth {
+  --sadu-pagination-woven: calc(var(--sadu-pagination-current) * var(--sadu-pagination-cell));
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: round(down, var(--sadu-pagination-woven), 6px);
+  overflow: hidden;
+  transition: --sadu-pagination-woven var(--sadu-dur-throw) var(--sadu-throw);
+}
+
+.sadu-eye-pagination__cloth .sadu-weave {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: calc((var(--sadu-pagination-count) - 1) * var(--sadu-pagination-cell));
+}
+
+.sadu-eye-pagination__page {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  width: var(--sadu-pagination-cell);
+  height: var(--sadu-pagination-cell);
+  border-radius: var(--sadu-radius-control);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sadu-eye-pagination__page[data-current] {
+  cursor: default;
+}
+
+.sadu-eye-pagination__page:hover:not([data-current]) .sadu-lozenge::before {
+  border-color: var(--sadu-ink-2);
+  background: var(--sadu-sand);
+}
+
+.sadu-eye-pagination__page:active:not([data-current]) .sadu-lozenge::before {
+  scale: 0.92;
+}
+
+.sadu-eye-pagination__page:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-eye-pagination__chevron:dir(rtl) {
+  scale: -1 1;
+}
+
+.sadu-eye-pagination__gap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: var(--sadu-pagination-cell);
+  height: var(--sadu-pagination-cell);
+}
+
+.sadu-eye-pagination__gap span {
+  width: 4px;
+  height: 1px;
+  background: var(--sadu-edge);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-eye-pagination__cloth {
+    transition: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-eye-pagination__cloth {
+  transition: none;
+}
+
+[data-theme="tent"] .sadu-eye-pagination__page .sadu-lozenge[data-chosen] {
+  color: #fbf7f0;
+}

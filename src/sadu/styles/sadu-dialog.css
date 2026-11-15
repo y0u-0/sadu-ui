@@ -1,0 +1,148 @@
+.sadu-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--sadu-black) 48%, transparent);
+  transition: opacity var(--sadu-dur-unroll-in) var(--sadu-unroll-in);
+}
+
+.sadu-dialog-backdrop:is([data-starting-style], [data-ending-style]) {
+  opacity: 0;
+}
+
+.sadu-dialog-backdrop[data-ending-style] {
+  transition-duration: var(--sadu-dur-unroll-out);
+  transition-timing-function: var(--sadu-unroll-out);
+}
+
+.sadu-dialog {
+  --sadu-dialog: 480px;
+  --sadu-dialog-sm: 420px;
+  --sadu-dialog-radius: 16px;
+  --sadu-dialog-shadow-room: -64px;
+  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  width: min(var(--sadu-dialog), calc(100vw - 32px));
+  height: fit-content;
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden auto;
+  border: 0;
+  border-radius: var(--sadu-dialog-radius);
+  background: var(--sadu-raised);
+  color: var(--sadu-ink);
+  font-family: var(--sadu-font);
+  box-shadow: var(--sadu-float);
+  outline: none;
+  clip-path: inset(var(--sadu-dialog-shadow-room));
+  transition:
+    clip-path var(--sadu-dur-unroll-in) var(--sadu-unroll-in),
+    translate var(--sadu-dur-unroll-in) var(--sadu-unroll-in),
+    opacity var(--sadu-dur-pop-in) var(--sadu-unroll-in);
+}
+
+.sadu-dialog:is([data-starting-style], [data-ending-style]) {
+  clip-path: inset(var(--sadu-dialog-shadow-room) var(--sadu-dialog-shadow-room) 100% var(--sadu-dialog-shadow-room));
+  translate: 0 -6px;
+}
+
+.sadu-dialog[data-ending-style] {
+  opacity: 0;
+  transition-duration: var(--sadu-dur-unroll-out);
+  transition-timing-function: var(--sadu-unroll-out);
+}
+
+.sadu-dialog__flap {
+  position: relative;
+  margin: 6px 6px 0;
+}
+
+.sadu-dialog__cloth {
+  display: grid;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-contact), var(--sadu-cloth-ring);
+  animation: sadu-beat-reveal var(--sadu-beat-duration) steps(var(--sadu-beat-columns), jump-end) var(--sadu-dur-press) both;
+}
+
+.sadu-dialog__teeth {
+  height: 12px;
+}
+
+.sadu-dialog__motif {
+  height: 33px;
+}
+
+.sadu-dialog__beater.sadu-beater {
+  top: -4px;
+  bottom: -4px;
+  animation-delay: var(--sadu-dur-press), calc(var(--sadu-beat-duration) + var(--sadu-dur-press)), calc(var(--sadu-beat-duration) + var(--sadu-dur-press) * 2);
+}
+
+.sadu-dialog__body {
+  padding: 20px 24px 24px;
+}
+
+.sadu-dialog__body > .sadu-overlay-header + * {
+  margin-top: 20px;
+}
+
+.sadu-dialog:dir(rtl) .sadu-dialog__cloth {
+  animation-name: sadu-beat-reveal-rtl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-dialog,
+  .sadu-dialog-backdrop {
+    transition: opacity var(--sadu-dur-press) linear;
+  }
+
+  .sadu-dialog:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    translate: none;
+    clip-path: inset(var(--sadu-dialog-shadow-room));
+  }
+
+  .sadu-dialog .sadu-dialog__cloth {
+    animation: none;
+  }
+}
+
+[data-motion="reduced"] :is(.sadu-dialog, .sadu-dialog-backdrop) {
+  transition: opacity var(--sadu-dur-press) linear;
+}
+
+[data-motion="reduced"] .sadu-dialog:is([data-starting-style], [data-ending-style]) {
+  opacity: 0;
+  translate: none;
+  clip-path: inset(var(--sadu-dialog-shadow-room));
+}
+
+[data-motion="reduced"] .sadu-dialog .sadu-dialog__cloth {
+  animation: none;
+}
+
+[data-motion="reduced"] .sadu-dialog__beater.sadu-beater {
+  display: none;
+}
+
+.sadu-dialog[data-specimen] {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: var(--sadu-dialog);
+  max-height: none;
+  margin: 0;
+  overflow: hidden;
+  clip-path: none;
+  transition: none;
+}
+
+.sadu-dialog[data-specimen] .sadu-dialog__cloth {
+  animation: none;
+}
+
+.sadu-dialog[data-specimen] .sadu-dialog__beater.sadu-beater {
+  display: none;
+}

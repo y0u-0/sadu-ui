@@ -1,0 +1,187 @@
+.sadu-menu__trigger svg:last-child {
+  transition: rotate var(--sadu-dur-pop-in) var(--sadu-snap);
+}
+
+.sadu-menu__trigger[data-open] svg:last-child {
+  rotate: 180deg;
+}
+
+.sadu-menu__content {
+  min-width: 232px;
+}
+
+.sadu-menu__content[data-nested] {
+  transition-duration: var(--sadu-dur-press);
+}
+
+.sadu-menu__specimen {
+  position: relative;
+  display: inline-block;
+  width: max-content;
+}
+
+.sadu-menu__label:lang(ar) {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.sadu-menu__label {
+  padding: 6px 10px 4px;
+  font: 600 12px/16px var(--sadu-font);
+  letter-spacing: 0.01em;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: var(--sadu-h-control);
+  padding: 0 10px;
+  border-radius: var(--sadu-radius-item);
+  font: 500 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.sadu-menu__item[data-inset] {
+  padding-inline-start: 36px;
+}
+
+.sadu-menu__item[data-highlighted],
+.sadu-menu__item[data-open] {
+  background: var(--sadu-sand);
+}
+
+.sadu-menu__item[data-highlighted]:active {
+  background: color-mix(in srgb, var(--sadu-sand) 96%, var(--sadu-ink));
+}
+
+.sadu-menu__item[data-checked] .sadu-menu__text {
+  font-weight: 600;
+}
+
+.sadu-menu__item[data-disabled] {
+  color: var(--sadu-ink-3);
+  cursor: default;
+}
+
+.sadu-menu__item[data-disabled][data-highlighted] {
+  background: color-mix(in srgb, var(--sadu-sand) 50%, transparent);
+}
+
+.sadu-menu__item[data-destructive] {
+  color: var(--sadu-madder-ink);
+}
+
+.sadu-menu__item[data-destructive][data-highlighted] {
+  background: color-mix(in srgb, var(--sadu-madder-ink) 12%, transparent);
+}
+
+.sadu-menu__item[data-pending] {
+  cursor: progress;
+}
+
+.sadu-menu__lead {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-menu__item[data-destructive] .sadu-menu__lead {
+  color: inherit;
+}
+
+.sadu-menu__lead svg {
+  display: block;
+}
+
+.sadu-menu__text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sadu-menu__shortcut {
+  display: inline-flex;
+  margin-inline-start: 20px;
+}
+
+.sadu-menu__trailing {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: 20px;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-menu__trailing [lang="ar"] {
+  font-size: 16px;
+  color: var(--sadu-ink);
+}
+
+.sadu-menu__chevron {
+  display: grid;
+  margin-inline-start: 12px;
+  margin-inline-end: -4px;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-menu__specimen .sadu-menu__chevron:dir(rtl) svg {
+  scale: -1 1;
+}
+
+.sadu-menu__separator {
+  height: 4px;
+  margin: 7px 10px;
+  background:
+    linear-gradient(90deg, var(--sadu-edge) 50%, transparent 0) 0 0 / 12px 2px repeat-x,
+    linear-gradient(90deg, transparent 50%, var(--sadu-edge) 0) 0 2px / 12px 2px repeat-x;
+  background-size:
+    12px 2px,
+    12px 2px;
+}
+
+.sadu-menu__content > .sadu-popup__edge {
+  left: 0;
+  right: 0;
+  width: round(down, calc(100% - 12px), 12px);
+  margin-inline: auto;
+}
+
+.sadu-menu__eye[data-state="on"] {
+  animation: sadu-menu-eye-row var(--sadu-dur-press) steps(5, end) both;
+}
+
+@keyframes sadu-menu-eye-row {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-menu__trigger svg:last-child {
+    transition-duration: 1ms;
+  }
+
+  .sadu-menu__eye[data-state="on"] {
+    animation: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-menu__trigger svg:last-child {
+  transition-duration: 1ms;
+}
+
+:where([data-motion="reduced"]) .sadu-menu__eye[data-state="on"] {
+  animation: none;
+}

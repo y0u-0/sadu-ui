@@ -1,0 +1,99 @@
+.sadu-menubar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  padding: 2px 2px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  font-family: var(--sadu-font);
+}
+
+.sadu-menubar::-webkit-scrollbar {
+  display: none;
+}
+
+.sadu-menubar__rod {
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.sadu-menubar[data-orientation="vertical"] {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 2px 6px 2px 2px;
+  overflow: visible;
+}
+
+.sadu-menubar[data-orientation="vertical"] .sadu-menubar__rod {
+  inset: 0 0 0 auto;
+  width: 4px;
+  height: auto;
+  --sadu-wood-angle: 90deg;
+  --sadu-wood-grain: 90deg;
+}
+
+.sadu-menubar__trigger {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: var(--sadu-h-control);
+  padding: 0 10px;
+  border-radius: var(--sadu-radius-item);
+  font: 500 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+  transition: background-color var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-menubar__trigger:hover:not([data-disabled]),
+.sadu-menubar__trigger[data-open] {
+  background: var(--sadu-sand);
+}
+
+.sadu-menubar__trigger[data-open] {
+  font-weight: 600;
+  transition-duration: 0ms;
+}
+
+.sadu-menubar__trigger:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-menubar__trigger[data-disabled] {
+  color: var(--sadu-ink-3);
+}
+
+.sadu-menubar__label {
+  display: inline-grid;
+}
+
+.sadu-menubar__label > span,
+.sadu-menubar__label::after {
+  grid-area: 1 / 1;
+}
+
+.sadu-menubar__label::after {
+  content: attr(data-label);
+  font-weight: 600;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-menubar__trigger {
+    transition-duration: 1ms;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-menubar__trigger {
+  transition-duration: 1ms;
+}

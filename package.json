@@ -1,0 +1,39 @@
+{
+  "name": "sadu",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "registry": "node scripts/build-registry.mjs",
+    "dev": "vite --port 5191 --strictPort",
+    "prebuild": "npm run registry",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "perf": "node scripts/perf/run.mjs",
+    "deploy": "CLOUDFLARE_ACCOUNT_ID=c53bef0920485bd6a524730dd87c1ba9 bash scripts/deploy.sh",
+    "deploy:whoami": "XDG_CONFIG_HOME=$HOME/.config/sadu-cloudflare ./node_modules/.bin/wrangler whoami < /dev/null"
+  },
+  "dependencies": {
+    "@ui-sdk/core": "^0.1.0-beta.1",
+    "@ui-sdk/react": "^0.1.0-beta.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "~1.48.2",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.6",
+    "vitest": "^3.2.7",
+    "wrangler": "^4.162.0"
+  }
+}

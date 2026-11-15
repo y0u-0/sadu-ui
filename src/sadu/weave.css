@@ -1,0 +1,108 @@
+.sadu-weave {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sadu-reweave {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.sadu-reweave__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.sadu-reweave__layer[data-weaving] {
+  animation: sadu-beat-reveal var(--sadu-beat-duration, 600ms) steps(var(--sadu-beat-columns, 24), jump-end) both;
+}
+
+.sadu-reweave:dir(rtl) .sadu-reweave__layer[data-weaving] {
+  animation-name: sadu-beat-reveal-rtl;
+}
+
+.sadu-beater {
+  position: absolute;
+  z-index: 1;
+  top: -2px;
+  bottom: -2px;
+  inset-inline-start: 0;
+  width: 10px;
+  margin-inline-start: -8px;
+  pointer-events: none;
+  animation:
+    sadu-beat-travel var(--sadu-beat-duration, 600ms) steps(var(--sadu-beat-columns, 24), jump-end) both,
+    sadu-beat-tap var(--sadu-dur-press) var(--sadu-beat-duration, 600ms) ease-in-out both,
+    sadu-beat-fade var(--sadu-dur-press) calc(var(--sadu-beat-duration, 600ms) + var(--sadu-dur-press)) linear both;
+}
+
+@keyframes sadu-beat-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sadu-beat-reveal-rtl {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sadu-beat-travel {
+  from {
+    inset-inline-start: 0;
+  }
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+@keyframes sadu-beat-tap {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -3px 0;
+  }
+}
+
+@keyframes sadu-beat-fade {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-reweave__layer[data-weaving] {
+    animation: sadu-fade-in var(--sadu-dur-press) linear both;
+  }
+
+  .sadu-beater {
+    opacity: 0;
+    animation: sadu-beat-fade 1ms both;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-reweave__layer[data-weaving] {
+  animation: sadu-fade-in var(--sadu-dur-press) linear both;
+}
+
+:where([data-motion="reduced"]) .sadu-beater {
+  opacity: 0;
+  animation: sadu-beat-fade 1ms both;
+}
+
+@keyframes sadu-fade-in {
+  from {
+    opacity: 0;
+  }
+}

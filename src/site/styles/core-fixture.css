@@ -1,0 +1,44 @@
+.fixtures {
+  display: grid;
+  gap: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 96px;
+}
+
+.fixture {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--sadu-radius-popup);
+  background: var(--sadu-surface);
+  box-shadow: 0 0 0 1px var(--sadu-line);
+}
+
+.fixture__title {
+  margin: 0;
+  font: 500 12px/16px var(--sadu-font-mono);
+  color: var(--sadu-ink-2);
+}
+
+.fixture__wide {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.fixture__strip {
+  height: 22px;
+}
+
+.fixture__tabs {
+  width: 520px;
+}
+
+.fixture__tabs[data-narrow] {
+  width: 360px;
+}
+
+.fixture__tabs[data-narrow] .sadu-tabs__tab {
+  font-size: 18px;
+}

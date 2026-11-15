@@ -1,0 +1,148 @@
+.sadu-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-family: var(--sadu-font);
+}
+
+.sadu-field__label {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 12px/16px var(--sadu-font);
+  letter-spacing: 0.01em;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-field__label[data-disabled] {
+  color: var(--sadu-ink-3);
+}
+
+.sadu-field__required {
+  display: flex;
+  align-self: flex-start;
+}
+
+.sadu-field__hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sadu-field__description {
+  margin: 0;
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  text-wrap: pretty;
+}
+
+.sadu-field:has(> .sadu-field__error) > .sadu-field__description {
+  display: none;
+}
+
+.sadu-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  overflow: hidden;
+  interpolate-size: allow-keywords;
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-madder-ink);
+  animation: sadu-field-error var(--sadu-dur-pop-in) var(--sadu-snap) both;
+}
+
+.sadu-field__fray {
+  flex: none;
+  width: 34px;
+  height: 10px;
+  margin-block-start: 4px;
+  overflow: visible;
+}
+
+.sadu-field__fray:dir(rtl) {
+  scale: -1 1;
+}
+
+.sadu-field__ply {
+  fill: var(--sadu-madder-ink);
+  animation: sadu-field-beat var(--sadu-dur-pop-in) var(--sadu-snap) both;
+}
+
+.sadu-field__ply[data-shade] {
+  fill: color-mix(in srgb, var(--sadu-madder-ink) 72%, #000);
+}
+
+.sadu-field__fibres {
+  fill: none;
+  stroke: var(--sadu-madder-ink);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-dasharray: 10;
+  animation: sadu-field-fray var(--sadu-dur-throw) var(--sadu-dur-pop-in) ease-out both;
+}
+
+.sadu-field:lang(ar) .sadu-field__label {
+  font-family: var(--sadu-font-arabic);
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+
+.sadu-field:lang(ar) .sadu-field__description,
+.sadu-field:lang(ar) .sadu-field__error {
+  font-family: var(--sadu-font-arabic);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@keyframes sadu-field-error {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes sadu-field-beat {
+  from {
+    opacity: 0;
+    translate: -3px 0;
+  }
+}
+
+@keyframes sadu-field-fray {
+  from {
+    stroke-dashoffset: 10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-field__error {
+    animation-name: sadu-field-fade;
+    animation-duration: var(--sadu-dur-press);
+  }
+
+  .sadu-field__ply,
+  .sadu-field__fibres {
+    animation: none;
+  }
+}
+
+:where([data-motion="reduced"]) .sadu-field__error {
+  animation-name: sadu-field-fade;
+  animation-duration: var(--sadu-dur-press);
+}
+
+:where([data-motion="reduced"]) .sadu-field__ply,
+:where([data-motion="reduced"]) .sadu-field__fibres {
+  animation: none;
+}
+
+@keyframes sadu-field-fade {
+  from {
+    opacity: 0;
+  }
+}

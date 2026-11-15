@@ -1,0 +1,80 @@
+.sadu-suggestions {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  width: max(var(--anchor-width), 260px);
+  max-height: min(var(--available-height, 360px), 360px);
+}
+
+.sadu-suggestions__list {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.sadu-suggestions__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto 10px;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding-inline: 6px 10px;
+  border-radius: var(--sadu-radius-item);
+  color: var(--sadu-ink);
+  cursor: pointer;
+  outline: none;
+  transition: background-color var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-suggestions__item[data-highlighted] {
+  background: var(--sadu-sand);
+}
+
+.sadu-suggestions__item[data-disabled] {
+  color: var(--sadu-ink-3);
+  cursor: not-allowed;
+}
+
+.sadu-suggestions__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sadu-suggestions__item[data-selected] .sadu-suggestions__name {
+  font-weight: 600;
+}
+
+.sadu-suggestions__arabic {
+  font: 16px/20px var(--sadu-font-arabic);
+  color: var(--sadu-ink);
+}
+
+.sadu-suggestions__mark {
+  display: grid;
+  place-items: center;
+}
+
+.sadu-suggestions__empty:not([data-empty]) {
+  display: none;
+}
+
+.sadu-suggestions__empty .sadu-empty {
+  padding-block: 18px 16px;
+}
+
+.sadu-suggestions__avatar {
+  display: inline-flex;
+}
+
+.sadu-suggestions__dot {
+  display: block;
+  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: var(--sadu-cloth-ring);
+}
+
+.sadu-suggestions__dot .sadu-weave {
+  width: 100%;
+  height: 100%;
+}

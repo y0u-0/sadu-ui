@@ -1,0 +1,400 @@
+.sadu-toast-region {
+  --sadu-toast-gap: 8px;
+  --sadu-toast-peek: 8px;
+  box-sizing: border-box;
+  position: fixed;
+  inset: auto 32px 32px auto;
+  width: min(360px, calc(100vw - 48px));
+  height: var(--toast-front-height);
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: none;
+  transition: height var(--sadu-dur-unroll-in) var(--sadu-unroll-in);
+}
+
+.sadu-toast-region:dir(rtl) {
+  inset: auto auto 32px 32px;
+}
+
+.sadu-toast-region[data-side="top"] {
+  inset-block: 32px auto;
+}
+
+.sadu-toast-region[data-expanded] {
+  height: calc(var(--toast-stack-height) + (var(--toast-count) - 1) * var(--sadu-toast-gap));
+}
+
+.sadu-toast-region > ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sadu-toast {
+  --sadu-toast-enter: calc(100% + 32px);
+  --sadu-toast-ink: var(--sadu-capsule-ink);
+  --sadu-toast-ink-2: color-mix(in srgb, var(--sadu-capsule-ink) 72%, var(--sadu-capsule));
+  --sadu-toast-warp: color-mix(in srgb, var(--sadu-capsule-ink) 45%, var(--sadu-capsule));
+  --sadu-toast-madder: color-mix(in srgb, var(--sadu-madder-cloth) 75%, var(--sadu-capsule-ink));
+  --x: 0px;
+  --y: calc(var(--toast-index) * var(--sadu-toast-peek) * -1);
+  box-sizing: border-box;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: calc(100 - var(--toast-index));
+  display: flex;
+  height: var(--toast-height);
+  color: var(--sadu-toast-ink);
+  font-family: var(--sadu-font);
+  translate: calc(var(--x) + var(--toast-swipe-x, 0px)) calc(var(--y) + var(--toast-swipe-y, 0px));
+  scale: calc(1 - var(--toast-index) * 0.04);
+  transition-property: translate, scale, opacity, height;
+  transition-duration: var(--sadu-dur-unroll-in);
+  transition-timing-function: var(--sadu-unroll-in);
+  user-select: none;
+}
+
+.sadu-toast:dir(rtl) {
+  --sadu-toast-enter: calc(-100% - 32px);
+}
+
+.sadu-toast:not([data-front], [data-expanded], [data-specimen]) {
+  height: var(--toast-front-height);
+}
+
+.sadu-toast:not([data-front], [data-expanded], [data-specimen]) .sadu-toast__content {
+  opacity: 0;
+}
+
+.sadu-toast[data-expanded] {
+  --y: calc(-1 * (var(--toast-offset) + var(--toast-index) * var(--sadu-toast-gap)));
+  scale: 1;
+}
+
+.sadu-toast[data-starting-style] {
+  transition: none;
+}
+
+.sadu-toast[data-starting-style][data-front] {
+  --x: var(--sadu-toast-enter);
+}
+
+.sadu-toast:is([data-starting-style]:not([data-front]), [data-ending-style]) {
+  opacity: 0;
+}
+
+.sadu-toast[data-ending-style] {
+  --x: calc(var(--sadu-toast-enter) * 0.25);
+  transition-duration: var(--sadu-dur-unroll-out);
+  transition-timing-function: var(--sadu-unroll-out);
+}
+
+.sadu-toast[data-swiping] {
+  transition: none;
+}
+
+.sadu-toast__strip {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-start-start-radius: 8px;
+  border-end-start-radius: 8px;
+  border-start-end-radius: 2px;
+  border-end-end-radius: 2px;
+  background: var(--sadu-capsule);
+  box-shadow: var(--sadu-float);
+}
+
+.sadu-toast__fringe {
+  --sadu-fringe: var(--sadu-capsule);
+  position: relative;
+  flex: none;
+  width: 10px;
+  margin-block: 3px;
+  container-type: size;
+  transition: translate var(--sadu-dur-throw) var(--sadu-unroll-in) 40ms;
+}
+
+.sadu-toast__fringe .sadu-fringe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100cqh;
+  transform-origin: 0 0;
+  rotate: -90deg;
+  translate: 0 100cqh;
+}
+
+.sadu-toast__fringe:dir(rtl) {
+  scale: -1 1;
+}
+
+.sadu-toast[data-starting-style] .sadu-toast__fringe {
+  translate: 6px 0;
+}
+
+.sadu-toast[data-starting-style] .sadu-toast__fringe:dir(rtl) {
+  translate: -6px 0;
+}
+
+.sadu-toast__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding-block: 12px 16px;
+  padding-inline: 14px 8px;
+  transition: opacity var(--sadu-dur-unroll-out);
+}
+
+.sadu-toast__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 20px;
+  color: var(--sadu-toast-ink-2);
+}
+
+.sadu-toast__mark .sadu-eye-mark {
+  color: var(--sadu-toast-ink);
+}
+
+.sadu-toast[data-type="error"] .sadu-toast__mark {
+  color: var(--sadu-toast-madder);
+}
+
+.sadu-toast__teeth {
+  width: 12px;
+  height: 10px;
+  fill: currentColor;
+}
+
+.sadu-toast__spinner {
+  animation: sadu-toast-spin 900ms linear infinite;
+}
+
+.sadu-toast__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.sadu-toast__title {
+  font: 600 14px/20px var(--sadu-font);
+  color: var(--sadu-toast-ink);
+}
+
+.sadu-toast__description {
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-toast-ink-2);
+}
+
+.sadu-toast__action {
+  all: unset;
+  flex: none;
+  align-self: center;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font: 600 13px/28px var(--sadu-font);
+  color: var(--sadu-toast-ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--sadu-toast-ink) 40%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: background var(--sadu-snap-duration) var(--sadu-snap);
+}
+
+.sadu-toast__close {
+  all: unset;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: var(--sadu-toast-ink-2);
+  cursor: pointer;
+  transition:
+    background var(--sadu-snap-duration) var(--sadu-snap),
+    color var(--sadu-snap-duration) var(--sadu-snap);
+}
+
+.sadu-toast__action:hover,
+.sadu-toast__close:hover {
+  background: color-mix(in srgb, var(--sadu-toast-ink) 10%, transparent);
+  color: var(--sadu-toast-ink);
+}
+
+.sadu-toast__action:focus-visible,
+.sadu-toast__close:focus-visible {
+  outline: 2px solid var(--sadu-toast-madder);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-toast__timer {
+  --sadu-cord-a: var(--sadu-toast-ink);
+  --sadu-cord-b: var(--sadu-toast-madder);
+  position: absolute;
+  inset: auto 14px 6px;
+  height: 4px;
+}
+
+.sadu-toast__warp {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--sadu-toast-warp), var(--sadu-toast-warp)) 0 0.5px / 100% 1px no-repeat,
+    linear-gradient(var(--sadu-toast-warp), var(--sadu-toast-warp)) 0 2.5px / 100% 1px no-repeat;
+}
+
+.sadu-toast__cloth {
+  position: absolute;
+  inset: 0;
+}
+
+.sadu-toast__fell {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 100%;
+}
+
+.sadu-toast__beater {
+  top: -3px;
+  bottom: -3px;
+  width: 3px;
+  margin-inline-start: -1px;
+  border-radius: 1px;
+  --sadu-wood-lift: none;
+}
+
+.sadu-toast__timer[data-timed] .sadu-toast__cloth,
+.sadu-toast__timer[data-timed] .sadu-toast__thread {
+  animation: sadu-toast-weave var(--sadu-toast-duration) steps(54, end) both;
+}
+
+.sadu-toast__timer[data-timed] .sadu-toast__fell {
+  animation: sadu-toast-fell var(--sadu-toast-duration) steps(54, end) both;
+}
+
+.sadu-toast__timer[data-timed]:dir(rtl) :is(.sadu-toast__cloth, .sadu-toast__thread) {
+  animation-name: sadu-toast-weave-rtl;
+}
+
+.sadu-toast__thread {
+  position: absolute;
+  inset: 1.25px 0 auto;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--sadu-toast-madder);
+}
+
+.sadu-toast__timer[data-frayed]:not([data-timed], [data-frozen]) .sadu-toast__thread {
+  inset-inline-end: 28%;
+}
+
+.sadu-toast__timer[data-frayed]:not([data-timed], [data-frozen]) .sadu-toast__fell {
+  inset-inline-start: 72%;
+}
+
+.sadu-toast__timer[data-frayed] .sadu-toast__fell {
+  top: -3px;
+  width: 12px;
+  height: 10px;
+  margin-inline-start: -1px;
+}
+
+.sadu-toast__timer[data-frozen] :is(.sadu-toast__cloth, .sadu-toast__thread) {
+  clip-path: inset(0 calc((1 - var(--sadu-toast-progress)) * 100%) 0 0);
+}
+
+.sadu-toast__timer[data-frozen]:dir(rtl) :is(.sadu-toast__cloth, .sadu-toast__thread) {
+  clip-path: inset(0 0 0 calc((1 - var(--sadu-toast-progress)) * 100%));
+}
+
+.sadu-toast__timer[data-frozen] .sadu-toast__fell {
+  inset-inline-start: calc(var(--sadu-toast-progress) * 100%);
+}
+
+.sadu-toast[data-specimen] {
+  position: relative;
+  inset: auto;
+  width: min(360px, 100%);
+  height: auto;
+  translate: none;
+  scale: none;
+  transition: none;
+}
+
+.sadu-toast__frayed {
+  display: block;
+  width: 12px;
+  height: 10px;
+  fill: none;
+  stroke: var(--sadu-toast-madder);
+  stroke-width: 0.7;
+  stroke-linecap: round;
+}
+
+.sadu-toast__frayed:dir(rtl) {
+  scale: -1 1;
+}
+
+.sadu-toast-region:is([data-expanded], [data-away]) :is(.sadu-toast__cloth, .sadu-toast__thread, .sadu-toast__fell) {
+  animation-play-state: paused;
+}
+
+@keyframes sadu-toast-weave {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sadu-toast-weave-rtl {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sadu-toast-fell {
+  from {
+    inset-inline-start: 0;
+  }
+  to {
+    inset-inline-start: 100%;
+  }
+}
+
+@keyframes sadu-toast-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-toast,
+  .sadu-toast-region {
+    transition-property: opacity;
+  }
+
+  .sadu-toast__fringe {
+    transition: none;
+  }
+}
+
+[data-motion="reduced"] :is(.sadu-toast, .sadu-toast-region) {
+  transition-property: opacity;
+}
+
+[data-motion="reduced"] .sadu-toast__fringe {
+  transition: none;
+}

@@ -1,0 +1,84 @@
+.menus-demo {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+  gap: 16px;
+  justify-items: center;
+}
+
+.menus-demo--start {
+  justify-items: start;
+}
+
+.menus-demo--stretch {
+  justify-items: stretch;
+  width: 100%;
+  max-width: 560px;
+}
+
+.menus-demo__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menus-demo__field {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.menus-demo__status {
+  margin: 0;
+  font: 13px/18px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink-2);
+  text-align: center;
+}
+
+.menus-toolbar__toggles {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.menus-studio {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.menus-studio__cloth {
+  height: 88px;
+  border-radius: var(--sadu-radius-cloth);
+}
+
+.menus-studio__caption {
+  margin: 0;
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+.menus-nav__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 264px);
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menus-note {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.menus-specimen {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 8px;
+  pointer-events: none;
+}

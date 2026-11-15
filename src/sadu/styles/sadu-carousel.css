@@ -1,0 +1,205 @@
+/*
+ * UI SDK rewrites --carousel-progress on the root every scroll frame. Only the beams read it, so it is registered
+ * as non-inherited and handed down explicitly; otherwise every frame restyles every rug in every slide.
+ */
+@property --carousel-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.sadu-carousel__frame,
+.sadu-carousel__loom,
+.sadu-carousel__beam {
+  --carousel-progress: inherit;
+}
+
+.sadu-carousel {
+  --sadu-carousel-caption: 50px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  font-family: var(--sadu-font);
+}
+
+.sadu-carousel__frame {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sadu-carousel__loom {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding-inline: 5px;
+}
+
+.sadu-carousel__viewport {
+  scrollbar-width: none;
+  outline: none;
+}
+
+.sadu-carousel__viewport:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+  border-radius: 2px;
+}
+
+.sadu-carousel__viewport[data-dragging] {
+  cursor: grabbing;
+}
+
+.sadu-carousel__content {
+  display: flex;
+  gap: 16px;
+}
+
+.sadu-carousel__item {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/*
+ * Slides off the current page are skipped by the renderer until they scroll into view, so a page-wide restyle
+ * (theme, dye, a resize cursor) does not restyle every rug in every slide. They still stretch to the current
+ * slide's height, and the clip margin keeps their cloth ring and contact shadow whole while they slide in.
+ */
+.sadu-carousel__item:not([data-active]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none;
+  overflow-clip-margin: 4px;
+}
+
+.sadu-carousel__figure {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.sadu-carousel__media {
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: var(--sadu-contact), var(--sadu-cloth-ring);
+}
+
+.sadu-carousel__caption {
+  display: grid;
+  gap: 2px;
+  padding-inline: 6px;
+}
+
+.sadu-carousel__caption > * {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sadu-carousel__name {
+  font: 600 13px/18px var(--sadu-font);
+  color: var(--sadu-ink);
+}
+
+.sadu-carousel__detail {
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+.sadu-carousel__beam {
+  position: absolute;
+  top: -4px;
+  bottom: calc(var(--sadu-carousel-caption) - 4px);
+  width: 10px;
+  background-position:
+    0 calc(var(--carousel-progress, 0) * 24px),
+    0 0;
+  pointer-events: none;
+}
+
+.sadu-carousel__beam[data-side="start"] {
+  --sadu-wood-lift: 6px 0 6px -3px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+  inset-inline-start: 0;
+}
+
+.sadu-carousel__beam[data-side="end"] {
+  --sadu-wood-lift: -6px 0 6px -3px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+  inset-inline-end: 0;
+}
+
+.sadu-carousel__beam:dir(rtl)[data-side="start"] {
+  --sadu-wood-lift: -6px 0 6px -3px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+}
+
+.sadu-carousel__beam:dir(rtl)[data-side="end"] {
+  --sadu-wood-lift: 6px 0 6px -3px color-mix(in srgb, var(--sadu-black) 40%, transparent);
+}
+
+.sadu-carousel__step {
+  margin-bottom: var(--sadu-carousel-caption);
+}
+
+.sadu-carousel__step[data-disabled] {
+  outline: 1px dashed var(--sadu-edge);
+  outline-offset: -1px;
+}
+
+.sadu-carousel__step:dir(rtl) svg {
+  scale: -1 1;
+}
+
+.sadu-carousel__floats {
+  display: flex;
+  justify-self: center;
+}
+
+.sadu-carousel__pick {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: var(--sadu-radius-compact);
+  cursor: pointer;
+}
+
+.sadu-carousel__float {
+  width: 12px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--sadu-camel);
+  transition:
+    width var(--sadu-dur-throw) var(--sadu-throw),
+    background-color var(--sadu-dur-press);
+}
+
+.sadu-carousel__pick:hover .sadu-carousel__float {
+  background: var(--sadu-ink-2);
+}
+
+.sadu-carousel__pick[data-selected] {
+  min-width: 36px;
+}
+
+.sadu-carousel__pick[data-selected] .sadu-carousel__float {
+  width: 24px;
+  background: var(--sadu-madder-cloth);
+}
+
+.sadu-carousel__pick:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-carousel__float {
+    transition-duration: 1ms;
+  }
+}
+
+[data-motion="reduced"] .sadu-carousel__float {
+  transition-duration: 1ms;
+}
+

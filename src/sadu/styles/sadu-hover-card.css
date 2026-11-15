@@ -1,0 +1,71 @@
+.sadu-hover-card-trigger {
+  border-radius: 2px;
+  color: var(--sadu-ink);
+  font-weight: 600;
+  text-decoration: underline dotted 2px;
+  text-decoration-color: var(--sadu-edge);
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-hover-card-trigger:hover,
+.sadu-hover-card-trigger[data-open] {
+  text-decoration-color: var(--sadu-madder-ink);
+}
+
+.sadu-hover-card-trigger:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-hover-card {
+  --sadu-popup-pad: 12px;
+  display: grid;
+  gap: 4px;
+  width: 260px;
+  max-width: calc(100vw - 24px);
+  text-align: start;
+  white-space: normal;
+}
+
+.sadu-hover-card[data-specimen] {
+  position: relative;
+  transition: none;
+}
+
+.sadu-hover-card__strip {
+  display: block;
+  height: 44px;
+  margin-bottom: 8px;
+}
+
+.sadu-hover-card__names {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sadu-hover-card__name {
+  font: 600 14px/20px var(--sadu-font);
+}
+
+.sadu-hover-card__arabic {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: var(--sadu-ink);
+}
+
+.sadu-hover-card__arabic[data-script="latin"] {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-hover-card__meaning {
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  text-wrap: pretty;
+}

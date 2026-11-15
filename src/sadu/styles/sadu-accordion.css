@@ -1,0 +1,201 @@
+.sadu-accordion {
+  display: grid;
+  width: 100%;
+  font-family: var(--sadu-font);
+}
+
+.sadu-accordion__header {
+  margin: 0;
+  font: inherit;
+}
+
+.sadu-accordion__trigger {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 48px;
+  padding: 0 4px;
+  border-radius: var(--sadu-radius-item) var(--sadu-radius-item) 0 0;
+  font: 600 14px/20px var(--sadu-font);
+  color: var(--sadu-ink);
+  cursor: pointer;
+  transition: background var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-accordion__trigger:hover {
+  background: var(--sadu-sand);
+}
+
+.sadu-accordion__trigger:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-accordion__trigger[data-disabled] {
+  color: var(--sadu-ink-3);
+  cursor: not-allowed;
+}
+
+.sadu-accordion__swatch {
+  position: relative;
+  flex: none;
+  width: 60px;
+  height: 22px;
+}
+
+.sadu-accordion__swatch-cloth {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-contact), var(--sadu-cloth-ring);
+  clip-path: inset(0 100% 0 0);
+}
+
+.sadu-accordion__swatch-cloth:dir(rtl) {
+  clip-path: inset(0 0 0 100%);
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__swatch-cloth {
+  clip-path: inset(0 0 0 0);
+  animation: sadu-beat-reveal var(--sadu-beat-duration) steps(var(--sadu-beat-columns), jump-end) both;
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__swatch-cloth:dir(rtl) {
+  animation-name: sadu-beat-reveal-rtl;
+}
+
+.sadu-accordion__swatch[data-still] .sadu-accordion__swatch-cloth {
+  animation: none;
+}
+
+.sadu-accordion__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.sadu-accordion__trigger[data-disabled] .sadu-accordion__eye {
+  color: var(--sadu-ink-3);
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__eye rect:is([y="2"], [y="6"]) {
+  animation: sadu-accordion-eye calc(var(--sadu-dur-press) / 2) linear both;
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__eye rect:is([y="0"], [y="8"]) {
+  animation: sadu-accordion-eye calc(var(--sadu-dur-press) / 2) linear calc(var(--sadu-dur-press) / 2) both;
+}
+
+.sadu-accordion__fold {
+  position: absolute;
+  inset: auto 0 -3px;
+  height: 6px;
+  pointer-events: none;
+}
+
+.sadu-accordion__thread {
+  position: absolute;
+  inset: 2.5px 0 auto;
+  height: 1px;
+  background: var(--sadu-edge);
+}
+
+.sadu-accordion__trigger[data-disabled] .sadu-accordion__thread {
+  background: repeating-linear-gradient(90deg, var(--sadu-edge) 0 6px, transparent 6px 10px);
+}
+
+.sadu-accordion__cloth {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--sadu-radius-cloth);
+  box-shadow: var(--sadu-contact), var(--sadu-cloth-ring);
+  clip-path: inset(0 100% 0 0);
+}
+
+.sadu-accordion__cloth:dir(rtl) {
+  clip-path: inset(0 0 0 100%);
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__cloth {
+  clip-path: inset(0 0 0 0);
+  animation: sadu-beat-reveal var(--sadu-beat-duration) steps(var(--sadu-beat-columns), jump-end) both;
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__cloth:dir(rtl) {
+  animation-name: sadu-beat-reveal-rtl;
+}
+
+.sadu-accordion__beater.sadu-beater {
+  display: none;
+}
+
+.sadu-accordion__trigger[data-open] .sadu-accordion__beater.sadu-beater {
+  display: block;
+}
+
+.sadu-accordion__fold[data-still] .sadu-accordion__cloth {
+  animation: none;
+}
+
+.sadu-accordion__swatch[data-still] .sadu-accordion__beater.sadu-beater,
+.sadu-accordion__fold[data-still] .sadu-accordion__beater.sadu-beater {
+  display: none;
+}
+
+.sadu-accordion__panel {
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  transition:
+    height var(--sadu-dur-unroll-in) var(--sadu-unroll-in),
+    opacity var(--sadu-dur-unroll-in) var(--sadu-unroll-in);
+}
+
+.sadu-accordion__panel:is([data-starting-style], [data-ending-style]) {
+  height: 0;
+  opacity: 0;
+}
+
+.sadu-accordion__panel[data-ending-style] {
+  transition-duration: var(--sadu-dur-unroll-out);
+  transition-timing-function: var(--sadu-unroll-out);
+}
+
+.sadu-accordion__content {
+  padding: 14px 4px 16px;
+  font: 14px/20px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  text-wrap: pretty;
+}
+
+.sadu-accordion__content > p {
+  margin: 0;
+}
+
+@keyframes sadu-accordion-eye {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-accordion__panel {
+    transition: opacity var(--sadu-dur-press) linear;
+  }
+
+  .sadu-accordion__trigger[data-open] :is(.sadu-accordion__cloth, .sadu-accordion__swatch-cloth) {
+    animation: sadu-fade-in var(--sadu-dur-press) linear both;
+  }
+}
+
+[data-motion="reduced"] .sadu-accordion__panel {
+  transition: opacity var(--sadu-dur-press) linear;
+}
+
+[data-motion="reduced"] .sadu-accordion__trigger[data-open] :is(.sadu-accordion__cloth, .sadu-accordion__swatch-cloth) {
+  animation: sadu-fade-in var(--sadu-dur-press) linear both;
+}

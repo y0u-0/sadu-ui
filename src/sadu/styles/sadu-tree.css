@@ -1,0 +1,171 @@
+.sadu-tree {
+  --sadu-tree-indent: 20px;
+  display: grid;
+  width: 100%;
+  max-width: 300px;
+  font-family: var(--sadu-font);
+  color: var(--sadu-ink);
+}
+
+.sadu-tree__item {
+  position: relative;
+  outline: none;
+}
+
+.sadu-tree__item:not([data-level="1"])::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: calc((var(--tree-level, 1) - 2) * var(--sadu-tree-indent) + 15.5px);
+  width: 1px;
+  background: var(--sadu-edge);
+  pointer-events: none;
+}
+
+.sadu-tree__item:not([data-level="1"]):last-child::before {
+  bottom: auto;
+  height: 16px;
+}
+
+.sadu-tree__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding-inline: calc((var(--tree-level, 1) - 1) * var(--sadu-tree-indent) + 8px) 10px;
+  border-radius: 8px;
+  font: 14px/20px var(--sadu-font);
+  cursor: pointer;
+  transition: background var(--sadu-dur-press);
+}
+
+.sadu-tree__row:hover {
+  background: color-mix(in oklab, var(--sadu-sand) 55%, transparent);
+}
+
+.sadu-tree__row[data-selected] {
+  background: var(--sadu-sand);
+}
+
+.sadu-tree__row[data-selected] .sadu-tree__label {
+  font-weight: 600;
+}
+
+.sadu-tree__item:focus-visible > .sadu-tree__row {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-tree__row[data-disabled] {
+  color: var(--sadu-ink-3);
+  cursor: default;
+}
+
+.sadu-tree__row:not([data-level="1"])::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  margin-top: -2px;
+  width: 4px;
+  height: 4px;
+  inset-inline-start: calc((var(--tree-level, 1) - 2) * var(--sadu-tree-indent) + 14px);
+  border-radius: 1px;
+  rotate: 45deg;
+  background: var(--sadu-ink-2);
+}
+
+.sadu-tree__eye,
+.sadu-tree__slot {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+
+
+.sadu-tree__eye > svg {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--sadu-dur-press),
+    scale var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-tree__eye-open {
+  opacity: 0;
+  scale: 1 0.2;
+}
+
+.sadu-tree__eye[data-expanded] .sadu-tree__eye-open {
+  opacity: 1;
+  scale: 1 1;
+}
+
+.sadu-tree__eye[data-expanded] .sadu-tree__eye-closed {
+  opacity: 0;
+}
+
+.sadu-tree__icon {
+  display: grid;
+  flex: none;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-tree__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sadu-tree__arabic {
+  font-size: 15px;
+  color: var(--sadu-ink);
+}
+
+.sadu-tree__meta {
+  margin-inline-start: auto;
+  font: 500 12px/16px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink-2);
+  unicode-bidi: plaintext;
+}
+
+.sadu-tree__group {
+  position: relative;
+  height: var(--tree-group-height);
+  overflow: hidden;
+  transition: height var(--sadu-dur-unroll-in) var(--sadu-unroll-in);
+}
+
+.sadu-tree__group:is([data-starting-style], [data-ending-style]) {
+  height: 0;
+}
+
+.sadu-tree__group[data-ending-style] {
+  transition-duration: var(--sadu-dur-unroll-out);
+  transition-timing-function: var(--sadu-unroll-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-tree__group {
+    transition-duration: 1ms;
+  }
+
+  .sadu-tree__eye > svg {
+    transition-property: opacity;
+    scale: 1;
+  }
+}
+
+[data-motion="reduced"] .sadu-tree__group {
+  transition-duration: 1ms;
+}
+
+[data-motion="reduced"] .sadu-tree__eye > svg {
+  transition-property: opacity;
+  scale: 1;
+}
+

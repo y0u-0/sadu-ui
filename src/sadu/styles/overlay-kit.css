@@ -1,0 +1,73 @@
+.sadu-overlay-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.sadu-overlay-header > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.sadu-overlay-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.sadu-overlay-footer:dir(rtl) {
+  justify-content: flex-start;
+}
+
+.sadu-overlay-title {
+  margin: 0;
+  font: 600 20px/26px var(--sadu-font-display);
+  letter-spacing: -0.01em;
+  color: var(--sadu-ink);
+  text-wrap: balance;
+}
+
+.sadu-overlay-description {
+  margin: 6px 0 0;
+  font: 14px/20px var(--sadu-font);
+  color: var(--sadu-ink-2);
+  text-wrap: pretty;
+}
+
+.sadu-overlay-close {
+  margin-block-start: -2px;
+  margin-inline-end: -6px;
+}
+
+.sadu-overlay-details {
+  display: grid;
+  margin: 0;
+  font: 13px/18px var(--sadu-font);
+}
+
+.sadu-overlay-details__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  box-shadow: inset 0 -1px 0 var(--sadu-line);
+}
+
+.sadu-overlay-details__row:last-child {
+  box-shadow: none;
+}
+
+.sadu-overlay-details dt {
+  color: var(--sadu-ink-2);
+}
+
+.sadu-overlay-details dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+  text-align: end;
+  unicode-bidi: plaintext;
+}

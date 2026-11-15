@@ -1,0 +1,162 @@
+.sadu-date-picker {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  max-width: 280px;
+  font-family: var(--sadu-font);
+}
+
+.sadu-date-picker__root {
+  display: grid;
+  gap: 6px;
+}
+
+.sadu-date-picker__field {
+  height: var(--sadu-h-field);
+  padding-inline: 12px 6px;
+}
+
+.sadu-date-picker__input {
+  all: unset;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  font: 400 14px/20px var(--sadu-font);
+  font-variant-numeric: tabular-nums;
+  color: var(--sadu-ink);
+}
+
+.sadu-date-picker__input::placeholder {
+  color: var(--sadu-ink-3);
+}
+
+.sadu-date-picker__field[data-landing="odd"] .sadu-date-picker__input {
+  animation: sadu-date-land-odd var(--sadu-dur-throw) var(--sadu-snap);
+}
+
+.sadu-date-picker__field[data-landing="even"] .sadu-date-picker__input {
+  animation: sadu-date-land-even var(--sadu-dur-throw) var(--sadu-snap);
+}
+
+.sadu-date-picker__field[data-range] .sadu-date-picker__input {
+  flex: 0 1 auto;
+  width: 11ch;
+}
+
+.sadu-date-picker__dash {
+  padding-inline-end: 6px;
+  color: var(--sadu-ink-2);
+}
+
+.sadu-date-picker__part {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sadu-date-picker__trigger {
+  margin-inline-start: auto;
+}
+
+.sadu-date-picker__hint {
+  font: 13px/18px var(--sadu-font);
+  color: var(--sadu-ink-2);
+}
+
+.sadu-date-picker__popup {
+  --sadu-popup-pad: 12px;
+  font-family: var(--sadu-font);
+}
+
+.sadu-date-picker__body {
+  display: flex;
+  gap: 12px;
+}
+
+.sadu-date-picker__presets {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 120px;
+  padding-top: 64px;
+  padding-inline-end: 8px;
+}
+
+.sadu-date-picker__preset {
+  all: unset;
+  box-sizing: border-box;
+  height: var(--sadu-h-control);
+  padding-inline: 10px;
+  border-radius: var(--sadu-radius-item);
+  font: 500 14px/36px var(--sadu-font);
+  color: var(--sadu-ink);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--sadu-dur-press);
+}
+
+.sadu-date-picker__preset:hover {
+  background: var(--sadu-sand);
+}
+
+.sadu-date-picker__preset[data-selected] {
+  font-weight: 600;
+  background: var(--sadu-sand);
+}
+
+.sadu-date-picker__preset:focus-visible {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset-inset);
+}
+
+.sadu-date-picker__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 8px;
+  box-shadow: inset 0 1px 0 var(--sadu-line);
+}
+
+@keyframes sadu-date-land-odd {
+  0% {
+    opacity: 0;
+    translate: 0 4px;
+  }
+  57% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  78% {
+    scale: 0.985;
+  }
+}
+
+@keyframes sadu-date-land-even {
+  0% {
+    opacity: 0;
+    translate: 0 4px;
+  }
+  57% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  78% {
+    scale: 0.985;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-date-picker__field[data-landing] .sadu-date-picker__input {
+    animation: none;
+  }
+}
+
+[data-motion="reduced"] .sadu-date-picker__field[data-landing] .sadu-date-picker__input {
+  animation: none;
+}

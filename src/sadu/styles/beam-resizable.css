@@ -1,0 +1,161 @@
+.sadu-resizable {
+  font-family: var(--sadu-font);
+}
+
+/*
+ * The resize cursors UI SDK would show over the whole page (see beam-resizable.tsx): the axis on the handle and
+ * across its group while dragging, and the one way a handle can still go once it reaches a limit.
+ */
+.sadu-resizable__handle[data-orientation="horizontal"],
+.sadu-resizable[data-orientation="horizontal"][data-dragging],
+.sadu-resizable[data-orientation="horizontal"][data-dragging] * {
+  cursor: ew-resize;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"],
+.sadu-resizable[data-orientation="vertical"][data-dragging],
+.sadu-resizable[data-orientation="vertical"][data-dragging] * {
+  cursor: ns-resize;
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"][data-limit="min"],
+.sadu-resizable__handle[data-orientation="horizontal"][data-limit="max"]:dir(rtl) {
+  cursor: e-resize;
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"][data-limit="max"],
+.sadu-resizable__handle[data-orientation="horizontal"][data-limit="min"]:dir(rtl) {
+  cursor: w-resize;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"][data-limit="min"] {
+  cursor: s-resize;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"][data-limit="max"] {
+  cursor: n-resize;
+}
+
+.sadu-resizable[data-dragging] {
+  user-select: none;
+}
+
+.sadu-resizable__handle[data-orientation][data-disabled] {
+  cursor: default;
+}
+
+.sadu-resizable__panel {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sadu-resizable__handle {
+  --sadu-resizable-beam: 1px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  outline: none;
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"] {
+  width: 24px;
+  margin-inline: -11.5px;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"] {
+  --sadu-wood-angle: 180deg;
+  --sadu-wood-grain: 0deg;
+  height: 24px;
+  margin-block: -11.5px;
+}
+
+.sadu-resizable__thread,
+.sadu-resizable__grip,
+.sadu-resizable__beam {
+  grid-area: 1 / 1;
+}
+
+.sadu-resizable__thread {
+  background: var(--sadu-edge);
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"] .sadu-resizable__thread {
+  width: 1px;
+  height: 100%;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"] .sadu-resizable__thread {
+  width: 100%;
+  height: 1px;
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"] .sadu-resizable__grip {
+  width: 4px;
+  height: 24px;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"] .sadu-resizable__grip {
+  width: 24px;
+  height: 4px;
+}
+
+.sadu-resizable__beam {
+  opacity: 0;
+  transition:
+    width var(--sadu-dur-press) var(--sadu-snap),
+    height var(--sadu-dur-press) var(--sadu-snap),
+    opacity var(--sadu-dur-press) var(--sadu-snap);
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"] .sadu-resizable__beam {
+  width: var(--sadu-resizable-beam);
+  height: 100%;
+}
+
+.sadu-resizable__handle[data-orientation="vertical"] .sadu-resizable__beam {
+  width: 100%;
+  height: var(--sadu-resizable-beam);
+}
+
+.sadu-resizable__handle:is([data-hovering], [data-dragging], :focus-visible) .sadu-resizable__beam {
+  opacity: 1;
+}
+
+.sadu-resizable__handle:is([data-hovering], :focus-visible) {
+  --sadu-resizable-beam: 4px;
+}
+
+.sadu-resizable__handle[data-dragging] {
+  --sadu-resizable-beam: 6px;
+  --sadu-wood-lift: 0 4px 12px -2px rgb(31 24 19 / 0.45);
+}
+
+.sadu-resizable__handle:focus-visible .sadu-resizable__beam {
+  outline: var(--sadu-focus);
+  outline-offset: var(--sadu-focus-offset);
+}
+
+.sadu-resizable__handle[data-disabled] .sadu-resizable__grip,
+.sadu-resizable__handle[data-disabled] .sadu-resizable__beam {
+  display: none;
+}
+
+.sadu-resizable__handle[data-orientation="horizontal"][data-disabled] .sadu-resizable__thread {
+  background: repeating-linear-gradient(180deg, var(--sadu-edge) 0 6px, transparent 6px 10px);
+}
+
+.sadu-resizable__handle[data-orientation="vertical"][data-disabled] .sadu-resizable__thread {
+  background: repeating-linear-gradient(90deg, var(--sadu-edge) 0 6px, transparent 6px 10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sadu-resizable__beam {
+    transition: opacity var(--sadu-dur-press);
+  }
+}
+
+[data-motion="reduced"] .sadu-resizable__beam {
+  transition: opacity var(--sadu-dur-press);
+}
